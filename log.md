@@ -1,5 +1,23 @@
 # Operation Log
 
+## [2026-06-14] update | /expand save — B3-B7 stub pages (6 pages)
+
+- **หน้าใหม่ (6 หน้า):**
+  - `wiki/concepts/qi-men-dun-jia.md` — Qi Men Dun Jia (奇門遁甲): กริด 3×3, เก้าดาว, แปดประตู, 2,160 รูปแบบ, ⚠️ Destiny Reading vs Oracle QMDJ
+  - `wiki/concepts/mang-pai.md` — Mang Pai (盲派): oral tradition, 象法/口訣/斷命秘訣, ⚠️ purity vs. three-method debate
+  - `wiki/concepts/date-selection.md` — Date Selection (擇日): Tong Shu, 28 Mansions, 12-day cycle, Bazi personalization, Dong Gong method
+  - `wiki/concepts/bazi-health-tcm.md` — Bazi Health × TCM: Five Elements→organ mapping, LP decade timing, Health-LLM Agent 81% accuracy
+  - `wiki/concepts/bazi-compatibility.md` — Compatibility (合盤): 6 วิธี (Spouse Palace, UG complementarity, chart quality, 神煞, LP sync), ⚠️ DM-only critique
+  - `wiki/concepts/bazi-ai-llm.md` — BaZi × AI: arXiv 2510.23337 + 2602.12889, frontier LLMs 32–37%, ¥12B China AI metaphysics market
+- **อัพเดท:** index.md (Pages 52→58), เพิ่ม "ระบบเกี่ยวข้อง" ขยายและ "การประยุกต์ใช้" section ใหม่
+- **session files:** knowledge-map.md resolved merge conflict + B3-B7 expanded, frontier-queue.md B3-B7 removed / B8-B16 added, exploration-log.tsv 5 rows appended
+
+## [2026-06-13] update | /expand save — Zi Wei Dou Shu stub page
+
+- **หน้าใหม่:** `wiki/concepts/zi-wei-dou-shu.md` — stub สำหรับ Zi Wei Dou Shu (紫微斗數) / Purple Star Astrology; เนื้อหาสังเคราะห์จาก /expand session
+- **เนื้อหาหลัก:** กริด 12 วัง, 14 ดาวหลัก, Four Transformations 四化, San He vs. Si Hua schools, ความสัมพันธ์กับ Bazi
+- **อัพเดท:** index.md (Pages 51→52, เพิ่ม "ระบบเกี่ยวข้อง" section), log.md
+
 ## [2026-06-11] update | 流月 Monthly Pillar — app tab + wiki scoring section
 
 - **App:** เพิ่ม tab `流月 / เดือน` ระหว่าง 大運/流年 และ 流日/วันนี้ ใน `deploy/index.html`
