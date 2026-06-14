@@ -1,5 +1,13 @@
 # Operation Log
 
+## [2026-06-14] update | /expand save — B8 Tong Shu + Z1 Si Hua stub pages (2 pages)
+
+- **หน้าใหม่ (2 หน้า):**
+  - `wiki/concepts/tong-shu.md` — Tong Shu / Chinese Almanac (通書): 28 คฤหาสน์จันทร์ + วงจร 12 เจ้าวัน + Shen Sha รายวัน + Hour Stars; ⚠️ ทั่วไป vs. ส่วนตัว; ⚠️ precession drift ใน almanac ยุคใหม่; Dong Gong method ในฐานะการบูรณาการขั้นสูง
+  - `wiki/concepts/si-hua-flying-star.md` — Si Hua / Flying Star School (四化飛星): สำนักเหนือ ZWDS; 18 ดาว + 4 transformations (Lu/Quan/Ke/Ji); ตาราง 10-Stem; chain reaction reading (串聯); ⚠️ San He vs Si Hua output-type conflict; ⚠️ วิกฤตการพิสูจน์สายสืบทอด 2025-26
+- **อัพเดท:** index.md (Pages 58→60), เพิ่ม Si Hua ใน "ระบบเกี่ยวข้อง" + Tong Shu ใน "การประยุกต์ใช้"
+- **session files:** knowledge-map.md appended (B8+Z1 nodes + 7 relationships), frontier-queue.md B8+Z1 removed / B17+Z2+Z3+B18+B19 added, exploration-log.tsv 2 rows appended
+
 ## [2026-06-14] update | /expand save — B3-B7 stub pages (6 pages)
 
 - **หน้าใหม่ (6 หน้า):**
