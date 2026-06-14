@@ -710,6 +710,43 @@ const SS_TIPS={
   '劫煞':{act:'LP/ปีที่นำ 劫煞 branch',life:'การสูญเสียทรัพย์ผ่านการถูกหักหลัง — ระวังหุ้นส่วนและการลงทุนร่วม'},
 };
 
+// ── Si Hua (四化) 10-stem transformation table — ZWDS Si Hua Flying Star (Z1 expansion 2026-06-14)
+const SI_HUA_TABLE=[
+  {lu:'廉貞',quan:'破軍',ke:'武曲',ji:'太陽'},  // 甲(0)
+  {lu:'天機',quan:'天梁',ke:'紫微',ji:'太陰'},  // 乙(1)
+  {lu:'天同',quan:'天機',ke:'文昌',ji:'廉貞'},  // 丙(2)
+  {lu:'太陰',quan:'天同',ke:'天機',ji:'巨門'},  // 丁(3)
+  {lu:'貪狼',quan:'太陰',ke:'右弼',ji:'天機'},  // 戊(4)
+  {lu:'武曲',quan:'貪狼',ke:'天梁',ji:'文曲'},  // 己(5)
+  {lu:'太陽',quan:'武曲',ke:'太陰',ji:'天同'},  // 庚(6)
+  {lu:'巨門',quan:'太陽',ke:'文曲',ji:'文昌'},  // 辛(7)
+  {lu:'天梁',quan:'紫微',ke:'左輔',ji:'武曲'},  // 壬(8)
+  {lu:'破軍',quan:'巨門',ke:'太陰',ji:'貪狼'},  // 癸(9)
+];
+
+// ── 12 Officers (建除十二神) — Tong Shu B8 expansion 2026-06-14
+const OFFICERS_12=[
+  {zh:'建',th:'ก่อตั้ง',quality:'neutral'},
+  {zh:'除',th:'ถอด',quality:'good'},
+  {zh:'滿',th:'เต็ม',quality:'good'},
+  {zh:'平',th:'สมดุล',quality:'neutral'},
+  {zh:'定',th:'มั่นคง',quality:'good'},
+  {zh:'執',th:'ถือ',quality:'neutral'},
+  {zh:'破',th:'แตก',quality:'bad'},
+  {zh:'危',th:'อันตราย',quality:'bad'},
+  {zh:'成',th:'สำเร็จ',quality:'good'},
+  {zh:'收',th:'รับ',quality:'good'},
+  {zh:'開',th:'เปิด',quality:'good'},
+  {zh:'閉',th:'ปิด',quality:'bad'},
+];
+
+// ── Shen Sha primary element map (for LP interaction)
+const SS_ELEMENT={
+  '天乙贵人':'earth','文昌贵人':'metal','太极贵人':'earth','驿马星':'fire',
+  '桃花星':'water','将星':'earth','华盖':'metal','羊刃':null,'空亡':null,
+  '月德贵人':'fire','天德贵人':'earth','孤辰':null,'寡宿':null,'劫煞':'metal',
+};
+
 const EL_FULL={
   wood:{icon:'🌳',domain:'การเติบโต ความเมตตา การศึกษา',health:'ตับ/น้ำดี ดวงตา กล้ามเนื้อ',career:'การศึกษา สุขภาพ สิ่งแวดล้อม',color:'เขียว',dir:'ตะวันออก',season:'ฤดูใบไม้ผลิ'},
   fire:{icon:'🔥',domain:'ความกล้าหาญ สติปัญญา การสื่อสาร',health:'หัวใจ/ลำไส้เล็ก สายตา ระบบประสาท',career:'IT สื่อ บันเทิง การศึกษา',color:'แดง',dir:'ใต้',season:'ฤดูร้อน'},
@@ -1041,9 +1078,40 @@ function detectDominantPattern(dmIdx,yearP,monthP,dayP,hourP){
   return null;
 }
 
+// Transformation Pattern (化格) — Stem Five-Combination with month branch support (wiki: transformation-patterns.md)
+function detectTransformationPattern(dmIdx,yearP,monthP,dayP,hourP){
+  const comb=STEM_FIVE_HE.find(c=>c.a===dmIdx||c.b===dmIdx);
+  if(!comb)return null;
+  const partnerIdx=comb.a===dmIdx?comb.b:comb.a;
+  if(![yearP.si,monthP.si,hourP.si].includes(partnerIdx))return null;
+  const productEl=comb.el;
+  const monthBrEl=BRANCHES[monthP.bi].el;
+  const monthSupports=monthBrEl===productEl||GEN[monthBrEl]===productEl;
+  const{score}=calcElementBalance(dmIdx,yearP,monthP,dayP,hourP);
+  const dmOrigEl=STEMS[dmIdx].el;
+  const breakout=(score[dmOrigEl]-1.0)>=0.8;
+  const isTrue=monthSupports&&!breakout;
+  return{
+    special:'transformation',
+    name:comb.zh+(isTrue?'':' (假化)'),
+    th:EL_TH[productEl]+(isTrue?' (สำเร็จ)':' (ไม่สำเร็จ)'),
+    desc:isTrue
+      ?`DM แปลงเป็น${EL_TH[productEl]}อย่างสมบูรณ์ — ${comb.narr} — หนึ่งใน Pattern ที่หายากและทรงพลังที่สุด`
+      :`Stems รวมกันแต่ไม่สำเร็จ (假化) — ลังเล ขัดแย้งภายใน ต้องรอ LP ที่เสริม${EL_TH[productEl]}`,
+    isTrue,productEl,
+    conditions:[
+      `DM ${STEMS[dmIdx].zh} + ${STEMS[partnerIdx].zh} พบกันในดวง ✓`,
+      monthSupports?`Month Branch ${BRANCHES[monthP.bi].zh} รองรับ${EL_TH[productEl]} ✓`:`Month Branch ไม่รองรับ${EL_TH[productEl]} ✗`,
+      !breakout?`ธาตุเดิม (${EL_TH[dmOrigEl]}) ไม่แข็งแกร่งเกิน ✓`:`ธาตุเดิมยังแข็งแกร่ง (${(score[dmOrigEl]-1).toFixed(1)}) ✗`,
+    ],
+  };
+}
+
 function getPattern(dmIdx,monthP,yearP,hourP,dayP){
   // Special patterns take priority over normal Month-Branch patterns
   if(dayP){
+    const tp=detectTransformationPattern(dmIdx,yearP,monthP,dayP,hourP);
+    if(tp&&tp.isTrue)return{patternName:tp.name,patternTh:tp.th,patternDesc:tp.desc,monthTG:-1,transparent:true,mixed:false,purity:'pure',special:tp.special,conditions:tp.conditions,productEl:tp.productEl,isTrue:true};
     const fp=detectFollowPattern(dmIdx,yearP,monthP,dayP,hourP);
     if(fp)return{patternName:fp.name,patternTh:fp.th,patternDesc:fp.desc,monthTG:-1,transparent:true,mixed:false,purity:'pure',special:fp.special,conditions:fp.conditions||[]};
     const dp=detectDominantPattern(dmIdx,yearP,monthP,dayP,hourP);
@@ -1794,17 +1862,27 @@ function renderPattern(chart,sec){
   sec.innerHTML='';
   const{pattern,usefulGod,dmIdx,strength}=chart;
   // Special pattern banner (Follow / Dominant Patterns)
-  if(pattern.special==='follow'||pattern.special==='dominant'){
+  if(pattern.special==='follow'||pattern.special==='dominant'||pattern.special==='transformation'){
     const isFollow=pattern.special==='follow';
+    const isTrans=pattern.special==='transformation';
+    const bgCol=isFollow?'#7c3aed18':isTrans?'#b8860b18':'#92400e18';
+    const bdCol=isFollow?'#7c3aed55':isTrans?'#b8860b55':'#d9770655';
+    const txCol=isFollow?'#7c3aed':isTrans?'#b8860b':'#d97706';
+    const icon=isFollow?'⚡':isTrans?'✦ 化格':'★';
+    const footerNote=isFollow
+      ?'⚠ Useful God ในดวงนี้คือธาตุที่เสริม dominant element — ไม่ใช่ธาตุที่เสริม DM โดยตรง'
+      :isTrans
+        ?'⚠ ดวง化格ที่แท้จริง (真化) — DM ละทิ้งธาตุเดิมอย่างสมบูรณ์ Useful God เปลี่ยนเป็นธาตุที่เสริม product element'
+        :'⚠ Useful God คือธาตุที่เสริม DM element ต่อไป — ธาตุที่ "ควบคุม" DM ปกติกลับกลายเป็น nemesis';
     const banner=document.createElement('div');
-    banner.style.cssText=`background:${isFollow?'#7c3aed18':'#92400e18'};border:1.5px solid ${isFollow?'#7c3aed55':'#d9770655'};border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.9rem`;
+    banner.style.cssText=`background:${bgCol};border:1.5px solid ${bdCol};border-radius:10px;padding:.9rem 1.1rem;margin-bottom:.9rem`;
     const condHtml=(pattern.conditions&&pattern.conditions.length)
       ?`<ul style="margin:.5rem 0 0 .5rem;padding:0;list-style:none;font-size:.8rem;color:var(--text);display:flex;flex-wrap:wrap;gap:.25rem .8rem">${pattern.conditions.map(c=>`<li style="white-space:nowrap">✓ ${c.replace(' ✓','')}</li>`).join('')}</ul>`
       :'';
-    banner.innerHTML=`<div style="font-weight:700;color:${isFollow?'#7c3aed':'#d97706'};font-size:1rem;margin-bottom:.3rem">${isFollow?'⚡':'★'} Pattern พิเศษ — ${pattern.patternName} (${pattern.patternTh})</div>
+    banner.innerHTML=`<div style="font-weight:700;color:${txCol};font-size:1rem;margin-bottom:.3rem">${icon} Pattern พิเศษ — ${pattern.patternName} (${pattern.patternTh})</div>
       <div style="font-size:.85rem;line-height:1.6;color:var(--text)">${pattern.patternDesc}</div>
       ${condHtml}
-      <div style="font-size:.8rem;color:var(--muted);margin-top:.5rem">${isFollow?'⚠ Useful God ในดวงนี้คือธาตุที่เสริม dominant element — ไม่ใช่ธาตุที่เสริม DM โดยตรง':'⚠ Useful God คือธาตุที่เสริม DM element ต่อไป — ธาตุที่ "ควบคุม" DM ปกติกลับกลายเป็น nemesis'}</div>`;
+      <div style="font-size:.8rem;color:var(--muted);margin-top:.5rem">${footerNote}</div>`;
     sec.appendChild(banner);
   }
   // Pattern box
@@ -1843,6 +1921,11 @@ function renderPattern(chart,sec){
       '稼穡格':'Fire (สร้าง Earth) + Earth (เสริม) + Metal (ผลผลิต)',
       '从革格':'Earth (สร้าง Metal) + Metal (เสริม) + Water (ผลผลิต)',
       '润下格':'Metal (สร้าง Water) + Water (เสริม) + Wood (ผลผลิต)',
+      '甲己合土':'Fire (สร้าง Earth) + Earth (เสริม) + Metal (ผลผลิต) — DM แปลงเป็นดิน เสริมความมั่นคง/อสังหาฯ',
+      '乙庚合金':'Earth (สร้าง Metal) + Metal (เสริม) + Water (ผลผลิต) — DM แปลงเป็นโลหะ เสริมความเด็ดขาด/กฎหมาย',
+      '丙辛合水':'Metal (สร้าง Water) + Water (เสริม) + Wood (ผลผลิต) — DM แปลงเป็นน้ำ เสริมปัญญา/วิจัย',
+      '丁壬合木':'Water (สร้าง Wood) + Wood (เสริม) + Fire (ผลผลิต) — DM แปลงเป็นไม้ เสริมการเติบโต/การศึกษา',
+      '戊癸合火':'Wood (สร้าง Fire) + Fire (เสริม) + Earth (ผลผลิต) — DM แปลงเป็นไฟ เสริมความกล้าหาญ/สื่อสาร',
     };
     const sp=document.createElement('div');sp.className='ug-card';
     sp.innerHTML=`<div class="ug-school">กฎ Pattern พิเศษ</div>
@@ -1934,6 +2017,8 @@ function renderLuckPillars(chart,sec){
     const isCurrent=currentAge>=lp.startAge&&currentAge<=lp.endAge;
     if(isCurrent)card.classList.add('current-lp');
     const s=STEMS[lp.si],b=BRANCHES[lp.bi];
+    const sh=SI_HUA_TABLE[lp.si];
+    const siHuaHtml=sh?`<div style="margin-top:.25rem;display:flex;flex-wrap:wrap;gap:.1rem" title="四化 Si Hua markers for ${s.zh} — ZWDS Si Hua Flying Star"><span style="font-size:.58rem;font-weight:700;color:#b8860b;padding:.05rem .2rem;border-radius:3px;background:#b8860b18">化禄 ${sh.lu}</span><span style="font-size:.58rem;font-weight:700;color:#2563eb;padding:.05rem .2rem;border-radius:3px;background:#2563eb18">化权 ${sh.quan}</span><span style="font-size:.58rem;font-weight:700;color:#16a34a;padding:.05rem .2rem;border-radius:3px;background:#16a34a18">化科 ${sh.ke}</span><span style="font-size:.58rem;font-weight:700;color:#dc2626;padding:.05rem .2rem;border-radius:3px;background:${isCurrent?'#dc262630':'#dc262618'}${isCurrent?';outline:1px solid #dc262688':''}">化忌 ${sh.ji}${isCurrent?' ⚠':''}</span></div>`:'';
     // LP quality badge for all 8 pillars
     let qKey='neutral';
     if(ugEl){
@@ -1954,7 +2039,8 @@ function renderLuckPillars(chart,sec){
       <div class="luck-zh" style="color:${elColor(b.el)};font-size:.95rem">${b.zh}</div>
       <div class="luck-th">${s.th}/${b.th}</div>
       <div style="margin-top:.2rem;line-height:1.2">${hidTGHtml}</div>
-      <div style="margin-top:.25rem;padding:.15rem .35rem;border-radius:5px;font-size:.68rem;font-weight:600;color:${q.color};background:${q.bg};border:1px solid ${q.border}">${q.icon} ${q.label}</div>`;
+      <div style="margin-top:.25rem;padding:.15rem .35rem;border-radius:5px;font-size:.68rem;font-weight:600;color:${q.color};background:${q.bg};border:1px solid ${q.border}">${q.icon} ${q.label}</div>
+      ${siHuaHtml}`;
     // Click → expand LP detail
     card.addEventListener('click',(function(lp,s,b){return function(){
       document.querySelectorAll('.luck-card').forEach(c=>c.classList.remove('selected-lp'));
@@ -2082,7 +2168,7 @@ function renderAnnualLuck(chart,sec){
 
   const table=document.createElement('table');table.className='annual-grid';
   const head=table.createTHead();const hr=head.insertRow();
-  ['ปี (ค.ศ.)','อายุ','ปีจีน','นักษัตร','สิบเทพปี','大運ที่อยู่','คุณภาพ'].forEach(h=>{
+  ['ปี (ค.ศ.)','อายุ','ปีจีน','นักษัตร','สิบเทพปี','大運ที่อยู่','คุณภาพ','建除'].forEach(h=>{
     const th=document.createElement('th');th.textContent=h;hr.appendChild(th);
   });
   const tbody=table.createTBody();
@@ -2096,10 +2182,14 @@ function renderAnnualLuck(chart,sec){
     const clashTag=row.clashPillars&&row.clashPillars.length?`<span style="font-size:.63rem;color:#dc2626;font-weight:600">⚡ชน${row.clashPillars.join('/')}</span>`:'';
     const sixHeTag=row.sixHePillars&&row.sixHePillars.length?`<span style="font-size:.63rem;color:#2563eb;font-weight:600">合${row.sixHePillars.join('/')}</span>`:'';
     const transTag=row.isTransition?`<span style="font-size:.6rem;color:#7c3aed;font-weight:600">🔄LP</span>`:'';
+    const officerIdx=(row.yBi-chart.monthP.bi+12)%12;
+    const officer=OFFICERS_12[officerIdx];
+    const offColor=officer.quality==='good'?'#16a34a':officer.quality==='bad'?'#dc2626':'#6b7280';
     tr.innerHTML=`<td>${row.year}${row.isCurrent?' ◀':''}</td><td>${row.age}</td>
       <td style="color:${elColor(ys.el)}">${ys.zh}${yb.zh}</td><td>${yb.an}</td>
       <td>${tgStr}</td><td style="font-size:.8rem">${lpStr}</td>
-      <td style="font-weight:600;color:${qColor};white-space:nowrap">${row.label} ${doubleTag}${clashTag}${sixHeTag}${transTag}</td>`;
+      <td style="font-weight:600;color:${qColor};white-space:nowrap">${row.label} ${doubleTag}${clashTag}${sixHeTag}${transTag}</td>
+      <td style="font-size:.75rem;color:${offColor};font-weight:600" title="${officer.th} — วงจรเจ้าวัน 12 ตัว (建除十二神) ตาม Tong Shu">${officer.zh} ${officer.th}</td>`;
   }
   sec.appendChild(table);
 
@@ -2148,8 +2238,11 @@ function renderAnnualLuck(chart,sec){
 
 function renderShenSha(chart,sec){
   sec.innerHTML='';
-  const{shenSha}=chart;
+  const{shenSha,dmIdx,luckPillars,tst}=chart;
   if(!shenSha.length){sec.innerHTML='<div class="alert alert-info">ไม่พบดาวพิเศษในแผนภูมินี้</div>';return;}
+  const currentAge=new Date().getFullYear()-(tst?tst.y:0);
+  const currentLP=luckPillars?luckPillars.find(lp=>currentAge>=lp.startAge&&currentAge<=lp.endAge):null;
+  const dmEl=STEMS[dmIdx].el;
   const title=document.createElement('div');title.style.cssText='font-weight:700;color:var(--primary);margin-bottom:.6rem';
   title.textContent=`ดาวพิเศษ (神煞) — พบ ${shenSha.length} ดวง`;
   sec.appendChild(title);
@@ -2158,11 +2251,28 @@ function renderShenSha(chart,sec){
     const card=document.createElement('div');
     card.className='ss-card '+(ss.auspicious?'auspicious':'inauspicious');
     const tip=SS_TIPS[ss.zh]||{};
+    let lpNoteHtml='';
+    if(currentLP){
+      const lpStemEl=STEMS[currentLP.si].el,lpBrEl=BRANCHES[currentLP.bi].el;
+      const ssEl=SS_ELEMENT[ss.zh]||(ss.zh==='羊刃'?dmEl:null);
+      if(ssEl){
+        const lpEls=[lpStemEl,lpBrEl];
+        if(lpEls.includes(ssEl))
+          lpNoteHtml=ss.auspicious
+            ?`<div style="font-size:.72rem;font-weight:600;color:#16a34a;margin-top:.25rem;padding:.1rem .3rem;border-radius:4px;background:#16a34a18">⚡ LP กระตุ้นดาวนี้โดยตรง (${STEMS[currentLP.si].zh}${BRANCHES[currentLP.bi].zh})</div>`
+            :`<div style="font-size:.72rem;font-weight:600;color:#dc2626;margin-top:.25rem;padding:.1rem .3rem;border-radius:4px;background:#dc262618">⚡ LP เพิ่มความเข้มข้น ${ss.zh} — ระวัง (${STEMS[currentLP.si].zh}${BRANCHES[currentLP.bi].zh})</div>`;
+        else if(lpEls.some(e=>GEN[e]===ssEl))
+          lpNoteHtml=`<div style="font-size:.72rem;font-weight:600;color:#2563eb;margin-top:.25rem;padding:.1rem .3rem;border-radius:4px;background:#2563eb18">↗ LP หนุนเสริมดาวนี้ทางอ้อม</div>`;
+        else if(lpEls.some(e=>CTR[e]===ssEl))
+          lpNoteHtml=`<div style="font-size:.72rem;font-weight:600;color:#6b7280;margin-top:.25rem;padding:.1rem .3rem;border-radius:4px;background:#6b728018">↘ LP ลดพลังดาวนี้ในช่วงนี้</div>`;
+      }
+    }
     card.innerHTML=`<div class="ss-zh">${ss.auspicious?'✦':'⚠'} ${ss.zh} ${ss.th}</div>
       <div style="font-size:.78rem;margin:.2rem 0">${ss.desc}</div>
       ${tip.life?`<div style="font-size:.78rem;color:var(--text);margin:.2rem 0;line-height:1.4">${tip.life}</div>`:''}
       <div class="ss-loc">📍 ${ss.locs.join(', ')}</div>
-      ${tip.act?`<div style="font-size:.72rem;color:var(--muted);margin-top:.25rem">⚡ Activate: ${tip.act}</div>`:''}`;
+      ${tip.act?`<div style="font-size:.72rem;color:var(--muted);margin-top:.25rem">⚡ Activate: ${tip.act}</div>`:''}
+      ${lpNoteHtml}`;
     grid.appendChild(card);
   }
   sec.appendChild(grid);
