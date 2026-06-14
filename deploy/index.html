@@ -838,6 +838,32 @@ const SS_TIPS={
   '劫煞':{act:'LP/ปีที่นำ 劫煞 branch',life:'การสูญเสียทรัพย์ผ่านการถูกหักหลัง — ระวังหุ้นส่วนและการลงทุนร่วม'},
 };
 
+const SI_HUA_TABLE=[
+  {lu:'廉貞',quan:'破軍',ke:'武曲',ji:'太陽'},
+  {lu:'天機',quan:'天梁',ke:'紫微',ji:'太陰'},
+  {lu:'天同',quan:'天機',ke:'文昌',ji:'廉貞'},
+  {lu:'太陰',quan:'天同',ke:'天機',ji:'巨門'},
+  {lu:'貪狼',quan:'太陰',ke:'右弼',ji:'天機'},
+  {lu:'武曲',quan:'貪狼',ke:'天梁',ji:'文曲'},
+  {lu:'太陽',quan:'武曲',ke:'太陰',ji:'天同'},
+  {lu:'巨門',quan:'太陽',ke:'文曲',ji:'文昌'},
+  {lu:'天梁',quan:'紫微',ke:'左輔',ji:'武曲'},
+  {lu:'破軍',quan:'巨門',ke:'太陰',ji:'貪狼'},
+];
+const OFFICERS_12=[
+  {zh:'建',th:'ก่อตั้ง',quality:'neutral'},{zh:'除',th:'ถอด',quality:'good'},
+  {zh:'滿',th:'เต็ม',quality:'good'},{zh:'平',th:'สมดุล',quality:'neutral'},
+  {zh:'定',th:'มั่นคง',quality:'good'},{zh:'執',th:'ถือ',quality:'neutral'},
+  {zh:'破',th:'แตก',quality:'bad'},{zh:'危',th:'อันตราย',quality:'bad'},
+  {zh:'成',th:'สำเร็จ',quality:'good'},{zh:'收',th:'รับ',quality:'good'},
+  {zh:'開',th:'เปิด',quality:'good'},{zh:'閉',th:'ปิด',quality:'bad'},
+];
+const SS_ELEMENT={
+  '天乙贵人':'earth','文昌贵人':'metal','太极贵人':'earth','驿马星':'fire',
+  '桃花星':'water','将星':'earth','华盖':'metal','羊刃':null,'空亡':null,
+  '月德贵人':'fire','天德贵人':'earth','孤辰':null,'寡宿':null,'劫煞':'metal',
+};
+
 const EL_FULL={
   wood:{icon:'🌳',domain:'การเติบโต ความเมตตา การศึกษา',health:'ตับ/น้ำดี ดวงตา กล้ามเนื้อ',career:'การศึกษา สุขภาพ สิ่งแวดล้อม',color:'เขียว',dir:'ตะวันออก',season:'ฤดูใบไม้ผลิ'},
   fire:{icon:'🔥',domain:'ความกล้าหาญ สติปัญญา การสื่อสาร',health:'หัวใจ/ลำไส้เล็ก สายตา ระบบประสาท',career:'IT สื่อ บันเทิง การศึกษา',color:'แดง',dir:'ใต้',season:'ฤดูร้อน'},
@@ -2212,12 +2238,18 @@ function renderLuckPillars(chart,sec){
       const hs=STEMS[hi];const tgi=getTenGodIdx(dmIdx,hi);
       return `<span style="display:inline-block;margin:.1rem .05rem;padding:.05rem .25rem;border-radius:4px;font-size:.6rem;font-weight:600;color:${elColor(hs.el)};background:${elColor(hs.el)}18;border:1px solid ${elColor(hs.el)}44">${hs.zh}${tgi>=0?' '+TG_ZH[tgi]:''}</span>`;
     }).join('');
+    // Si Hua (四化) markers for this LP's stem
+    const sh=SI_HUA_TABLE[lp.si];
+    const SHC={lu:'#b8860b',quan:'#2563eb',ke:'#16a34a',ji:'#dc2626'};
+    const SHL={lu:'化禄',quan:'化权',ke:'化科',ji:'化忌'};
+    const siHuaHtml=sh?`<div style="margin-top:.28rem;display:flex;flex-wrap:wrap;gap:.1rem">${['lu','quan','ke','ji'].map(k=>`<span style="font-size:.55rem;padding:.04rem .15rem;border-radius:3px;font-weight:700;color:${SHC[k]};background:${SHC[k]}18;border:1px solid ${SHC[k]}44${isCurrent&&k==='ji'?';outline:2px solid #dc2626;outline-offset:1px':''}" title="${SHL[k]}: ${sh[k]}">${sh[k]}</span>`).join('')}</div>`:'';
     card.innerHTML=`<div class="luck-age">อายุ ${lp.startAge}–${lp.endAge}</div>
       <div class="luck-zh" style="color:${elColor(s.el)}">${s.zh}</div>
       <div class="luck-zh" style="color:${elColor(b.el)};font-size:.95rem">${b.zh}</div>
       <div class="luck-th">${s.th}/${b.th}</div>
       <div style="margin-top:.2rem;line-height:1.2">${hidTGHtml}</div>
-      <div style="margin-top:.25rem;padding:.15rem .35rem;border-radius:5px;font-size:.68rem;font-weight:600;color:${q.color};background:${q.bg};border:1px solid ${q.border}">${q.icon} ${q.label}</div>`;
+      <div style="margin-top:.25rem;padding:.15rem .35rem;border-radius:5px;font-size:.68rem;font-weight:600;color:${q.color};background:${q.bg};border:1px solid ${q.border}">${q.icon} ${q.label}</div>
+      ${siHuaHtml}`;
     // Click → expand LP detail
     card.addEventListener('click',(function(lp,s,b){return function(){
       document.querySelectorAll('.luck-card').forEach(c=>c.classList.remove('selected-lp'));
@@ -2350,7 +2382,7 @@ function renderAnnualLuck(chart,sec){
 
   const table=document.createElement('table');table.className='annual-grid';
   const head=table.createTHead();const hr=head.insertRow();
-  ['ปี (ค.ศ.)','อายุ','ปีจีน','นักษัตร','สิบเทพปี','大運ที่อยู่','คุณภาพ'].forEach(h=>{
+  ['ปี (ค.ศ.)','อายุ','ปีจีน','นักษัตร','สิบเทพปี','大運ที่อยู่','คุณภาพ','建除'].forEach(h=>{
     const th=document.createElement('th');th.textContent=h;hr.appendChild(th);
   });
   const tbody=table.createTBody();
@@ -2364,10 +2396,14 @@ function renderAnnualLuck(chart,sec){
     const clashTag=row.clashPillars&&row.clashPillars.length?`<span style="font-size:.63rem;color:#dc2626;font-weight:600">⚡ชน${row.clashPillars.join('/')}</span>`:'';
     const sixHeTag=row.sixHePillars&&row.sixHePillars.length?`<span style="font-size:.63rem;color:#2563eb;font-weight:600">合${row.sixHePillars.join('/')}</span>`:'';
     const transTag=row.isTransition?`<span style="font-size:.6rem;color:#7c3aed;font-weight:600">🔄LP</span>`:'';
+    const officerIdx=(row.yBi-chart.monthP.bi+12)%12;
+    const off=OFFICERS_12[officerIdx];
+    const offColor=off.quality==='good'?'#16a34a':off.quality==='bad'?'#dc2626':'#6b7280';
     tr.innerHTML=`<td>${row.year}${row.isCurrent?' ◀':''}</td><td>${row.age}</td>
       <td style="color:${elColor(ys.el)}">${ys.zh}${yb.zh}</td><td>${yb.an}</td>
       <td>${tgStr}</td><td style="font-size:.8rem">${lpStr}</td>
-      <td style="font-weight:600;color:${qColor};white-space:nowrap">${row.label} ${doubleTag}${clashTag}${sixHeTag}${transTag}</td>`;
+      <td style="font-weight:600;color:${qColor};white-space:nowrap">${row.label} ${doubleTag}${clashTag}${sixHeTag}${transTag}</td>
+      <td style="font-size:.72rem;font-weight:600;color:${offColor};text-align:center">${off.zh}<br><span style="font-size:.62rem;font-weight:400">${off.th}</span></td>`;
   }
   sec.appendChild(table);
 
@@ -2825,8 +2861,11 @@ function renderDailyForecast(chart,sec){
 
 function renderShenSha(chart,sec){
   sec.innerHTML='';
-  const{shenSha}=chart;
+  const{shenSha,luckPillars,dmIdx,tst}=chart;
   if(!shenSha.length){sec.innerHTML='<div class="alert alert-info">ไม่พบดาวพิเศษในแผนภูมินี้</div>';return;}
+  const currentAge=tst?new Date().getFullYear()-tst.y:0;
+  const currentLP=luckPillars&&tst?luckPillars.find(lp=>currentAge>=lp.startAge&&currentAge<=lp.endAge):null;
+  const lpEls=currentLP?[STEMS[currentLP.si].el,BRANCHES[currentLP.bi].el]:[];
   const title=document.createElement('div');title.style.cssText='font-weight:700;color:var(--primary);margin-bottom:.6rem';
   title.textContent=`ดาวพิเศษ (神煞) — พบ ${shenSha.length} ดวง`;
   sec.appendChild(title);
@@ -2835,11 +2874,17 @@ function renderShenSha(chart,sec){
     const card=document.createElement('div');
     card.className='ss-card '+(ss.auspicious?'auspicious':'inauspicious');
     const tip=SS_TIPS[ss.zh]||{};
+    const ssEl=Object.prototype.hasOwnProperty.call(SS_ELEMENT,ss.zh)?SS_ELEMENT[ss.zh]:undefined;
+    const lpActive=ssEl!==undefined&&ssEl!==null&&lpEls.includes(ssEl);
+    const lpNoteHtml=lpActive&&currentLP
+      ?`<div style="margin-top:.25rem;padding:.1rem .3rem;border-radius:4px;font-size:.65rem;font-weight:700;color:#16a34a;background:#16a34a14;border:1px solid #16a34a44">⚡ LP 活化 — ${ss.zh} กระตุ้นใน ${STEMS[currentLP.si].zh}${BRANCHES[currentLP.bi].zh} (ธาตุ${EL_TH[ssEl]})</div>`
+      :'';
     card.innerHTML=`<div class="ss-zh">${ss.auspicious?'✦':'⚠'} ${ss.zh} ${ss.th}</div>
       <div style="font-size:.78rem;margin:.2rem 0">${ss.desc}</div>
       ${tip.life?`<div style="font-size:.78rem;color:var(--text);margin:.2rem 0;line-height:1.4">${tip.life}</div>`:''}
       <div class="ss-loc">📍 ${ss.locs.join(', ')}</div>
-      ${tip.act?`<div style="font-size:.72rem;color:var(--muted);margin-top:.25rem">⚡ Activate: ${tip.act}</div>`:''}`;
+      ${tip.act?`<div style="font-size:.72rem;color:var(--muted);margin-top:.25rem">⚡ Activate: ${tip.act}</div>`:''}
+      ${lpNoteHtml}`;
     grid.appendChild(card);
   }
   sec.appendChild(grid);
