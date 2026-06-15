@@ -1,5 +1,13 @@
 # Operation Log
 
+## [2026-06-15] update | NLM enrichment — 8 concept stub pages → full content (NLM/e1f30f92)
+
+- **หน้าที่ enriched (8 หน้า):** qi-men-dun-jia.md, tong-shu.md, si-hua-flying-star.md, date-selection.md, bazi-health-tcm.md, bazi-compatibility.md, bazi-ai-llm.md, mang-pai.md
+- **แหล่งข้อมูล:** NLM notebook e1f30f92 ("Bazi — เปรียบเทียบหลายแหล่ง Multi-Source Comparative", 40 sources)
+- **เนื้อหาเพิ่ม:** QMDJ origin story + Nine Stars/Eight Gates tables; Tong Shu historical origin + 28 Mansions/12-officer tables + David Yek "Chase the God" rule; Si Hua 14-star groups + Four Transformations table + Chuan Lian 3-layer + San He vs Si Hua comparison; Date Selection "Right Thing/Time/Place" + priority hierarchy + sidereal debate; Bazi Health TCM organ table + Wei Qianli LP case + Korean TCI-RS study; Compatibility Tang→Ming shift + Branch Interaction tables + Eileen Chang analysis; AI Benchmark Di Tian Sui 4-test + 3 hardest AI tasks + Clash+Combination failure; Mang Pai oral tradition details + 6 reading approaches + debate on what the school rejects
+- **Lint:** 2 WikiLink issues fixed — added alias "Date Selection (擇日)" to date-selection.md; added alias "การตีความธาตุทั้งห้า (Five Elements Deep)" to five-elements-interpretation.md
+- **อัพเดท:** index.md (8 entries: stub 2026-06-14 → 2026-06-15), updated: 2026-06-15
+
 ## [2026-06-14] update | /expand save — B8 Tong Shu + Z1 Si Hua stub pages (2 pages)
 
 - **หน้าใหม่ (2 หน้า):**

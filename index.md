@@ -1,6 +1,6 @@
 # Wiki Index
 
-> **Last updated:** 2026-06-14 | **Sources:** 10 | **Pages:** 60
+> **Last updated:** 2026-06-15 | **Sources:** 10 | **Pages:** 60
 
 ## Overview
 - [Overview](wiki/overview.md) — Bazi (四柱命理): อ่านชะตาชีวิตผ่านสี่เสา ธาตุทั้งห้า วงจรดวงชะตา และระบบ Ten Gods / 格局
@@ -72,16 +72,16 @@
 
 ## ระบบเกี่ยวข้อง (Related Systems)
 - [Zi Wei Dou Shu (紫微斗數)](wiki/concepts/zi-wei-dou-shu.md) — Purple Star Astrology: กริด 12 วัง × 14 ดาวหลัก; San He (30–108 ดาว, 象) vs. Si Hua (18 ดาว, 數); คู่คู่ขนานของ Bazi สำหรับ event timing | stub 2026-06-13
-- [Qi Men Dun Jia (奇門遁甲)](wiki/concepts/qi-men-dun-jia.md) — ระบบพยากรณ์เชิงสถานการณ์; กริด 3×3 × เก้าดาว × แปดประตู; เปลี่ยนทุก 2 ชั่วโมง; 2,160 รูปแบบ | stub 2026-06-14
-- [Si Hua / Flying Star School (四化飛星)](wiki/concepts/si-hua-flying-star.md) — สำนักเหนือของ ZWDS; 18 ดาว + 4 การแปลงสภาพ (Lu/Quan/Ke/Ji); ตาราง 10-Stem activation; อ่านจับเวลาเหตุการณ์ (數) vs. ภาพรวม (象) ของ San He; ⚠️ วิกฤตการพิสูจน์สายสืบทอด 2025-26 | stub 2026-06-14
+- [Qi Men Dun Jia (奇門遁甲)](wiki/concepts/qi-men-dun-jia.md) — ระบบพยากรณ์เชิงสถานการณ์; กริด 3×3 × เก้าดาว × แปดประตู; เปลี่ยนทุก 2 ชั่วโมง; 2,160 รูปแบบ | 2026-06-15
+- [Si Hua / Flying Star School (四化飛星)](wiki/concepts/si-hua-flying-star.md) — สำนักเหนือของ ZWDS; 18 ดาว + 4 การแปลงสภาพ (Lu/Quan/Ke/Ji); ตาราง 10-Stem activation; อ่านจับเวลาเหตุการณ์ (數) vs. ภาพรวม (象) ของ San He; ⚠️ วิกฤตการพิสูจน์สายสืบทอด 2025-26 | 2026-06-15
 
 ## การประยุกต์ใช้และขยาย (Applications & Expansions)
-- [Date Selection (擇日)](wiki/concepts/date-selection.md) — การเลือกวันมงคล: Tong Shu almanac + 28 Mansions + 12-day cycle + Shen Sha + Bazi personalization + QMDJ | stub 2026-06-14
-- [Compatibility Analysis (合盤)](wiki/concepts/bazi-compatibility.md) — การวิเคราะห์ความเข้ากันของคู่: 6 วิธี (Spouse Palace, UG complementarity, chart quality, 神煞, LP sync) | stub 2026-06-14
-- [Bazi Health × Five Elements × TCM](wiki/concepts/bazi-health-tcm.md) — การทำนายสุขภาพจากธาตุในดวงชะตา; ความสอดคล้อง Five Elements→อวัยวะ; Health-LLM Agent 81% accuracy (2024) | stub 2026-06-14
-- [Mang Pai (盲派) — Blindman School](wiki/concepts/mang-pai.md) — สำนักถ่ายทอดปากเปล่าโดยผู้ปฏิบัติตาบอด; อ่านภาพ (象法) + บทกวี (口訣) + เทคนิคพิเศษ; ⚠️ ถกเถียงเรื่องสิ่งที่ปฏิเสธ | stub 2026-06-14
-- [BaZi × AI / LLM Benchmarking](wiki/concepts/bazi-ai-llm.md) — ใช้ Bazi เป็น AI test bed; arXiv 2510.23337 + 2602.12889; frontier LLMs 32–37% accuracy; ตลาด AI metaphysics จีน ¥12B (2024) | stub 2026-06-14
-- [Tong Shu / Chinese Almanac (通書)](wiki/concepts/tong-shu.md) — ปฏิทินอ้างอิงหลักของ date selection; 28 คฤหาสน์จันทร์ + วงจร 12 เจ้าวัน + Shen Sha รายวัน; ⚠️ ทั่วไป vs. ส่วนตัว; ⚠️ precession drift ใน almanac ยุคใหม่ทั้งหมด | stub 2026-06-14
+- [Date Selection (擇日)](wiki/concepts/date-selection.md) — การเลือกวันมงคล: Tong Shu almanac + 28 Mansions + 12-day cycle + Shen Sha + Bazi personalization + QMDJ | 2026-06-15
+- [Compatibility Analysis (合盤)](wiki/concepts/bazi-compatibility.md) — การวิเคราะห์ความเข้ากันของคู่: 6 วิธี (Spouse Palace, UG complementarity, chart quality, 神煞, LP sync) | 2026-06-15
+- [Bazi Health × Five Elements × TCM](wiki/concepts/bazi-health-tcm.md) — การทำนายสุขภาพจากธาตุในดวงชะตา; ความสอดคล้อง Five Elements→อวัยวะ; Health-LLM Agent 81% accuracy (2024) | 2026-06-15
+- [Mang Pai (盲派) — Blindman School](wiki/concepts/mang-pai.md) — สำนักถ่ายทอดปากเปล่าโดยผู้ปฏิบัติตาบอด; อ่านภาพ (象法) + บทกวี (口訣) + เทคนิคพิเศษ; ⚠️ ถกเถียงเรื่องสิ่งที่ปฏิเสธ | 2026-06-15
+- [BaZi × AI / LLM Benchmarking](wiki/concepts/bazi-ai-llm.md) — ใช้ Bazi เป็น AI test bed; arXiv 2510.23337 + 2602.12889; frontier LLMs 32–37% accuracy; ตลาด AI metaphysics จีน ¥12B (2024) | 2026-06-15
+- [Tong Shu / Chinese Almanac (通書)](wiki/concepts/tong-shu.md) — ปฏิทินอ้างอิงหลักของ date selection; 28 คฤหาสน์จันทร์ + วงจร 12 เจ้าวัน + Shen Sha รายวัน; ⚠️ ทั่วไป vs. ส่วนตัว; ⚠️ precession drift ใน almanac ยุคใหม่ทั้งหมด | 2026-06-15
 
 ## Synthesis
 - [Daily Forecast Methodology](wiki/synthesis/daily-forecast-methodology.md) — สูตรคะแนนคุณภาพวัน 1–4 ดาว: UG alignment + clash/harmony + LP bonus + กฎเชิงปฏิบัติ | 2026-06-11

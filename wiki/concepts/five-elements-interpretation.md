@@ -2,7 +2,7 @@
 title: "การตีความธาตุทั้งห้า (五行 Deep Interpretation) — บุคลิก ความสัมพันธ์ และความไม่สมดุล"
 type: concept
 tags: [five-elements, wu-xing, personality, interpersonal, imbalance, health, career, TCM, classical]
-aliases: [five-elements-deep, 五行解读, ธาตุตีความ]
+aliases: [five-elements-deep, 五行解读, ธาตุตีความ, "การตีความธาตุทั้งห้า (Five Elements Deep)"]
 related: [five-elements, heavenly-stems, day-master, ten-gods, useful-god, methodology]
 created: 2026-06-02
 updated: 2026-06-03
