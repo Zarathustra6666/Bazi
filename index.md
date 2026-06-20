@@ -1,6 +1,6 @@
 # Wiki Index
 
-> **Last updated:** 2026-06-15 | **Sources:** 10 | **Pages:** 60
+> **Last updated:** 2026-06-20 | **Sources:** 25 | **Pages:** 87
 
 ## Overview
 - [Overview](wiki/overview.md) — Bazi (四柱命理): อ่านชะตาชีวิตผ่านสี่เสา ธาตุทั้งห้า วงจรดวงชะตา และระบบ Ten Gods / 格局
@@ -44,6 +44,11 @@
 - [การตีความธาตุทั้งห้า (Five Elements Deep)](wiki/concepts/five-elements-interpretation.md) — บุคลิก Yang/Yin แต่ละธาตุ, ปฏิสัมพันธ์ 5 แบบ (帮生泄克耗), LP activation framework, Tiao Hou decision tree, case studies
 - [Element Narrative Templates](wiki/concepts/element-narrative-templates.md) — prose templates แบบซินแส: classical overflow phrases, DM-specific narratives, Tiao Hou decision tree, LP activation sentences
 - [Shen Sha Event Prediction](wiki/concepts/shen-sha-prediction.md) — prediction matrix 8 ดาวพิเศษ × LP activation: 天乙/驿马/桃花/文昌/天德/月德/羊刃/华盖
+- [Annual Pillars (流年)](wiki/concepts/annual-pillars.md) — 流年 methodology: น้ำหนักการทำนาย LP>Year>Month>Day, ปฏิสัมพันธ์กับดวงเกิด, ดวงปีดี/ยาก/ชน
+- [ปาจื้อในประเทศไทย](wiki/concepts/thai-bazi-tradition.md) — สำนักและผู้ปฏิบัติไทย, ปัญหาปฏิทิน, ศัพท์ไทย-จีน crosswalk
+- [Bazi สำหรับธุรกิจ](wiki/concepts/bazi-business-entrepreneurship.md) — ดาวผู้ประกอบการ (偏财/伤官/偏官), ห้าธาตุกับอุตสาหกรรม, สมดุลทีม, เลือกหุ้นส่วน
+- [Thai Reading Workflow](wiki/concepts/thai-reading-workflow.md) — Checklist 7 ขั้นตอนสำหรับนักปฏิบัติไทย: แปลงปฏิทิน → ดวง → Pattern → UG → Interactions → LP → บริบทไทย
+- [Shen Sha Integration](wiki/concepts/shen-sha-integration.md) — กรอบผสานดาวพิเศษ: tertiary factor หลัง Pattern+UG, ดาวในคัมภีร์ vs. เชิงพาณิชย์, LP activation
 
 ### Master Interpretation Layer (ขั้นปรมาจารย์)
 - [Ten Gods × Pillar Position](wiki/concepts/ten-gods-pillar.md) — ความหมายสิบเทพต่างกันตามเสา: 食神/伤官/七杀/正官 ใน Year/Month/Day/Hour
@@ -85,6 +90,50 @@
 
 ## Synthesis
 - [Daily Forecast Methodology](wiki/synthesis/daily-forecast-methodology.md) — สูตรคะแนนคุณภาพวัน 1–4 ดาว: UG alignment + clash/harmony + LP bonus + กฎเชิงปฏิบัติ | 2026-06-11
+- [ลักษณะวาสนาร่ำรวยในปาจื้อ](wiki/synthesis/wasana-ramruay.md) — ลักษณะดวงปาจื้อที่บ่งชี้วาสนาร่ำรวย: ลาภจริง ลาภลอย เทพโภคา ธาตุครบ จังหวะดวงใหญ่ `(1 source)` | 2026-06-20
+- [ลักษณะปาจื้อหญิง](wiki/synthesis/pachueh-ying.md) — สรุปลักษณะนิสัยและดวงชะตาของปาจื้อหญิง: ธาตุเจ้าชะตา วังคู่ครอง ดาวเฉียบ ดาวอิ่ง ดาวใช้ `(1 source)` | 2026-06-20
+- [วาสนาความรักและการสมรสในปาจื้อ](wiki/synthesis/wasana-rak.md) — ลักษณะดวงที่บ่งชี้คู่ครองและการสมรส: ฐานวัน เสาวัน ดาวคู่ครอง ดวงใหญ่ `(1 source)` | 2026-06-20
+- [วาสนาการงานในปาจื้อ](wiki/synthesis/wasana-karngan.md) — ลักษณะดวงที่บ่งชี้อาชีพและความสำเร็จ: ธาตุ 5 สิบเทพ เสาเดือน `(1 source)` | 2026-06-20
+- [ดาวสภาพและดาวใช้ในปาจื้อ](wiki/synthesis/dao-saphap-dao-chai.md) — ลักษณะและบทบาทของดาวสภาพ (伤官) และดาวใช้ (食神) พลังสร้างสรรค์สองขั้ว `(1 source)` | 2026-06-20
+- [ดาวทั้ง 10 ทิศในปาจื้อ](wiki/synthesis/dao-sip-thit.md) — สรุปลักษณะและความหมายของสิบเทพทั้ง 10 ใน 5 กลุ่ม `(1 source)` | 2026-06-20
+- [ปาจื้อชาย](wiki/synthesis/dao-pachueh-chai.md) — บทบาทดาวในดวงชาย: ลาภจริงแทนภรรยา ดาวอำนาจแทนอาชีพ ห้าธาตุกำหนดสไตล์ `(1 source)` | 2026-06-20
+- [วาสนาสุขภาพ](wiki/synthesis/wasana-sukhaphap.md) — ห้าธาตุกับอวัยวะ: ธาตุอ่อนบ่งอวัยวะที่ต้องระวัง ดวงใหญ่เปลี่ยนจุดเสี่ยงสุขภาพ `(1 source)` | 2026-06-20
+- [วาสนาดวงใหญ่](wiki/synthesis/wasana-duang-yai.md) — จังหวะชีวิต 10 ปี: ดวงใหญ่ดี/ยาก อ่านจากยันเสิน สามระดับชะตา `(1 source)` | 2026-06-20
+- [วาสนาลูกหลาน](wiki/synthesis/wasana-luk-lan.md) — ดาวใช้/ดาวสภาพแทนลูก เสาเวลาพระราชวังลูก จังหวะมีบุตร `(1 source)` | 2026-06-20
+- [วาสนาดวงปี](wiki/synthesis/wasana-duang-pi.md) — 流年 รายปี: ดวงปีชนดวงเกิด ปีดี/ปียาก วางแผนชีวิตตามจังหวะ `(1 source)` | 2026-06-20
+- [ลักษณะดวงดี](wiki/synthesis/laksana-duang-di.md) — ยันเสินแข็ง สี่เสาส่งเสริม ดวงใหญ่หนุนต่อเนื่อง รูปแบบพิเศษ `(1 source)` | 2026-06-20
+- [ลักษณะดวงยาก](wiki/synthesis/laksana-duang-yak.md) — ยันเสินอ่อน ธาตุขาดสมดุล เสาชนกัน ดวงยากไม่ใช่ดวงล้มเหลว `(1 source)` | 2026-06-20
+- [ดวงธุรกิจ](wiki/synthesis/duang-thurakit.md) — ห้าธาตุกับประเภทธุรกิจ ดวงผู้ประกอบการ สมดุลทีม เลือกหุ้นส่วน `(1 source)` | 2026-06-20
+- [การเปิดดวง](wiki/synthesis/kan-poet-duang.md) — ปรับดวงไม่ใช่แก้ดวง สามระดับชะตา จุดเปิดดวงธรรมชาติ เครื่องมือเสริมธาตุ `(1 source)` | 2026-06-20
+- [บุคลิกเจ้าชะตาทั้ง 10](wiki/synthesis/day-master-personalities.md) — อาร์คีไทป์ก้านฟ้า 10 ตัว: จุดแข็ง จุดอ่อน เส้นทางที่เหมาะ ภาษาไทย | 2026-06-20
+
+## Raw Sources (Thai Articles)
+- [วาสนาร่ำรวย](raw/wasana-ramruay.md) — บทความออนไลน์ วาสนาร่ำรวย (fengshuimee.com, fengshuix.com) | 2026-06-20
+- [ปาจื้อหญิง](raw/pachueh-ying.md) — บทความออนไลน์ ปาจื้อหญิง (varasarnpress.co, rightinvites.com, rujai.io) | 2026-06-20
+- [วาสนาความรัก](raw/wasana-rak.md) — บทความออนไลน์ วาสนาความรัก (medium.com, rujai.io) | 2026-06-20
+- [วาสนาการงาน](raw/wasana-karngan.md) — บทความออนไลน์ วาสนาการงาน (destinysoln.com, rujai.io) | 2026-06-20
+- [ดาวสภาพ/ดาวใช้](raw/dao-saphap-dao-chai.md) — บทความออนไลน์ ดาวสภาพ ดาวใช้ (fengshuix.com, rightinvites.com) | 2026-06-20
+- [ดาว 10 ทิศ](raw/dao-sip-thit.md) — บทความออนไลน์ ดาวสิบทิศ สิบเทพ (fengshuix.com, rujai.io) | 2026-06-20
+- [ปาจื้อชาย](raw/dao-pachueh-chai.md) — บทความออนไลน์ ดวงชาย บทบาทดาว (rightinvites.com, horoacademy.com, posttoday.com) | 2026-06-20
+- [วาสนาสุขภาพ](raw/wasana-sukhaphap.md) — บทความออนไลน์ ธาตุประจำตัวและสุขภาพ (numeiang.com, rightinvites.com) | 2026-06-20
+- [วาสนาดวงใหญ่](raw/wasana-duang-yai.md) — บทความออนไลน์ ดวงใหญ่ 大运 จังหวะชีวิต (fengshuix.com, qqii.space) | 2026-06-20
+- [วาสนาลูกหลาน](raw/wasana-luk-lan.md) — บทความออนไลน์ ดาวลูก เสาเวลา (fengshuix.com) | 2026-06-20
+- [วาสนาดวงปี](raw/wasana-duang-pi.md) — บทความออนไลน์ 流年 ดวงปี จังหวะรายปี (fengshuix.com, qqii.space) | 2026-06-20
+- [ลักษณะดวงดี](raw/laksana-duang-di.md) — บทความออนไลน์ ลักษณะดวงเด่น รูปแบบดวงดี (destinysoln.com, fengshuix.com) | 2026-06-20
+- [ลักษณะดวงยาก](raw/laksana-duang-yak.md) — บทความออนไลน์ ดวงอุปสรรค การรับมือ (horoacademy.com, qqii.space) | 2026-06-20
+- [ดวงธุรกิจ](raw/duang-thurakit.md) — บทความออนไลน์ ปาจื้อในธุรกิจ ห้าธาตุทีม (posttoday.com, fengshuix.com) | 2026-06-20
+- [การเปิดดวง](raw/kan-poet-duang.md) — บทความออนไลน์ การปลดล็อกศักยภาพ จังหวะชะตา (fengshuix.com, qqii.space) | 2026-06-20
+
+## Masters
+- [Master Kai / Nova Masters Consulting](wiki/masters/nova-masters-consulting.md) — 60-volume Day-Pillar Series, 30+ ปีประสบการณ์, Malaysia-based, 8 ภาษา
+- [Mang Pai Lineage (盲派)](wiki/masters/mang-pai-lineage.md) — สายสืบทอดปากเปล่า: Duan Jianye เป็นผู้บันทึกได้มากที่สุด; วิธีอ่านภาพ (象法) + บทกวีจำ (口訣)
+- [Joey Yap — วิธีการสอน](wiki/masters/joey-yap-methodology.md) — DOPE profiling, Cai-Guan-Yin framework, Shifting Palace Method, Shen Sha เชิงพาณิชย์
+- [นักปฏิบัติปาจื้อไทย](wiki/masters/thai-practitioners-overview.md) — ภาพรวมแพลตฟอร์มไทย: fengshuix, fengshuimee, numeiang, ajarnim, horoacademy, wealthdecor
+- [Dr. Lily Chung (鍾月萍)](wiki/masters/lily-chung.md) — Ph.D Geography; ผู้เขียน 13 เล่ม Bazi+I Ching; ระบบ HLLS + Special Stars; Western-academic orientation; San Francisco
+
+## Case Studies
+- [Follow Pattern Example (从格)](wiki/case-studies/follow-pattern-example.md) — วิเคราะห์ Follow Water Pattern ครบ 6 ขั้นตอน: ยันเสินกลับทาง ดินเป็นอันตราย
+- [Transformation Example (化格)](wiki/case-studies/transformation-example.md) — วิเคราะห์ 甲己化土格: เงื่อนไข True vs False และ LP Verification
 
 ## Queries
 *(ยังไม่มี)*

@@ -1,5 +1,40 @@
 # Operation Log
 
+## [2026-06-20] update | Track D completion — lily-chung.md; index count corrected
+
+- **Masters เพิ่ม (1 ไฟล์):** lily-chung.md — Dr. Lily Chung (鍾月萍), Ph.D Geography, Bay Area; ผู้เขียน 13 เล่ม Bazi+I Ching; ระบบ HLLS + Special Pillars and Stars; Western-academic orientation
+- **Liang Ruoyu:** ค้นหาไม่พบในแหล่งสาธารณะใดๆ (ชื่ออาจสับสนกับ Liang Xiangrun ที่มีหน้าอยู่แล้ว) — ไม่สร้างหน้า
+- **แก้ไขจำนวนหน้า:** index.md Pages 89 → 87 (นับจริงจากระบบไฟล์ 87 หน้า: 47 concepts + 8 entities + 17 synthesis + 5 texts + 2 sources + 5 masters + 2 case-studies + 1 overview)
+- **อัพเดท:** index.md (Masters section เพิ่ม lily-chung.md)
+- **สถานะแผน compiled-stirring-newell:** สมบูรณ์ — Track A (9), B (7), C (2), D (5); ยกเว้น joey-yap/david-yek/historical-chart (ไม่มีข้อมูลดวงชะตาสาธารณะ)
+
+## [2026-06-20] ingest | Tracks B+C+D — 13 new pages (compiled-stirring-newell plan)
+
+- **Track B — Concept Pages (7 ไฟล์):** annual-pillars.md, thai-bazi-tradition.md, bazi-business-entrepreneurship.md, thai-reading-workflow.md, shen-sha-integration.md (concepts/); day-master-personalities.md (synthesis/)
+- **Track C — Case Studies (2 ไฟล์):** follow-pattern-example.md, transformation-example.md
+- **Track D — Masters (4 ไฟล์):** nova-masters-consulting.md, mang-pai-lineage.md, joey-yap-methodology.md, thai-practitioners-overview.md
+- **แหล่งข้อมูล:** novamastersconsulting.com, deeporacle.ai, talenthero.io, grokipedia.com, posttoday.com, rightinvites.com + wiki knowledge synthesis
+- **หมายเหตุ:** Wu Guifu (吴贵甫), Liang Ruoyu, Lily Chung ไม่พบข้อมูลเพียงพอ — รวมใน mang-pai-lineage.md และ thai-practitioners-overview.md แทน
+- **อัพเดท:** index.md (Pages 76→89); Masters section และ Case Studies section เพิ่มใหม่
+
+## [2026-06-20] ingest | Track A — 9 Thai synthesis pages (compiled-stirring-newell plan)
+
+- **Raw sources สร้าง (9 ไฟล์):** dao-pachueh-chai.md, wasana-sukhaphap.md, wasana-duang-yai.md, wasana-luk-lan.md, wasana-duang-pi.md, laksana-duang-di.md, laksana-duang-yak.md, duang-thurakit.md, kan-poet-duang.md
+- **Synthesis pages สร้าง (9 ไฟล์):** dao-pachueh-chai.md, wasana-sukhaphap.md, wasana-duang-yai.md, wasana-luk-lan.md, wasana-duang-pi.md, laksana-duang-di.md, laksana-duang-yak.md, duang-thurakit.md, kan-poet-duang.md
+- **แหล่งข้อมูล:** rightinvites.com, horoacademy.com, posttoday.com, numeiang.com, fengshuix.com, qqii.space, destinysoln.com (8 แหล่ง)
+- **สไตล์:** Thai numbered-card synthesis — สรุป 5 ลักษณะ THEME, ภาษาไทยสะท้อนความหมายต่อชีวิต, WikiLinks ข้ามหน้า
+- **อัพเดท:** index.md (Sources 16→25, Pages 67→76)
+- **แผนถัดไป:** Track B (6 concept pages), Track C (5 case studies), Track D (5 masters pages)
+
+## [2026-06-20] ingest | Thai Article Research — 6 synthesis pages (abundant-marinating-dragon plan)
+
+- **Raw sources สร้าง (6 ไฟล์):** wasana-ramruay.md, pachueh-ying.md, wasana-rak.md, wasana-karngan.md, dao-saphap-dao-chai.md, dao-sip-thit.md
+- **Synthesis pages สร้าง (6 ไฟล์):** wasana-ramruay.md, pachueh-ying.md, wasana-rak.md, wasana-karngan.md, dao-saphap-dao-chai.md, dao-sip-thit.md
+- **แหล่งข้อมูล:** fengshuimee.com, fengshuix.com, varasarnpress.co, rightinvites.com, rujai.io, destinysoln.com, medium.com/@QiMenAlchemy, wealthdecor.com
+- **สไตล์:** Thai numbered-card synthesis — สรุปNลักษณะTHEME, 5 จุดต่อหน้า, ภาษาไทยสะท้อนความหมายต่อชีวิต
+- **Wiki dirs เพิ่ม:** wiki/masters/, wiki/case-studies/
+- **อัพเดท:** index.md (Sources 10→16, Pages 60→67)
+
 ## [2026-06-15] update | NLM enrichment — 8 concept stub pages → full content (NLM/e1f30f92)
 
 - **หน้าที่ enriched (8 หน้า):** qi-men-dun-jia.md, tong-shu.md, si-hua-flying-star.md, date-selection.md, bazi-health-tcm.md, bazi-compatibility.md, bazi-ai-llm.md, mang-pai.md

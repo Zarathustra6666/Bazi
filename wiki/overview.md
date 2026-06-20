@@ -3,17 +3,17 @@ title: Wiki Overview — Bazi (八字)
 type: overview
 tags: [bazi, overview, four-pillars, chinese-metaphysics]
 created: 2026-05-16
-updated: 2026-06-10
-sources: 10
-pages: 49
+updated: 2026-06-20
+sources: 25
+pages: 87
 ---
 
 # Wiki Overview
 
 > **Domain:** Bazi (八字) — Four Pillars of Destiny (四柱命理)
 > **Started:** 2026-05-16
-> **Sources ingested:** 10  
-> **Wiki pages:** 49
+> **Sources ingested:** 25  
+> **Wiki pages:** 87
 
 ## Current thesis
 [[Bazi (八字)]] เป็นระบบโหราศาสตร์จีนที่อ่านชะตาชีวิตผ่าน "แผนที่พลังงาน" ณ เวลาเกิด โดยใช้ [[สี่เสา (Four Pillars)]] แปดตัวอักษรเป็นโครงสร้าง [[ธาตุเจ้าชะตา (Day Master)]] เป็นศูนย์กลาง และ [[โครงสร้างดวงชะตา (格局)|格局 Pattern System]] เป็นกรอบวิเคราะห์ **Bazi ไม่ใช่ระบบเดียว** แต่เป็นกลุ่มสำนักที่ยึดคัมภีร์และวิธีการต่างกัน โดยมีคัมภีร์หลัก 5 เล่มเป็นแหล่งอ้างอิง — ยังไม่มีสำนักใดพิสูจน์ความถูกต้องทางวิทยาศาสตร์
@@ -30,6 +30,10 @@ pages: 49
 - **Master Interpretation Layer** — [[master-reading-synthesis|Master Synthesis: 情×力]] × [[ten-gods-pillar|Ten Gods × Pillar]] × [[luck-pillar-arc|LP Arc]] × [[branch-interaction-meaning|Branch Interaction Meaning]] — layer ขั้นปรมาจารย์: สังเคราะห์ดวงแบบ ZPZQ (有情/有力/格局純雜)
 - **Element Narrative Layer** — [[element-narrative-templates|Element Narrative Templates]] — classical overflow phrases (木多无金/火多土焦/水多木漂), DM-specific narrative prose แบบซินแส, Tiao Hou decision tree, LP activation narrative sentences
 - **Shen Sha Prediction** — [[shen-sha-prediction|Shen Sha Event Prediction]] — prediction matrix 8 ดาวพิเศษ × LP activation: 天乙贵人, 驿马, 桃花, 文昌, 羊刃 + activation conditions + event categories
+- **Thai Synthesis Layer** — [[wasana-ramruay]], [[wasana-rak]], [[wasana-karngan]], [[dao-sip-thit]], [[wasana-duang-yai]], [[wasana-duang-pi]], [[laksana-duang-di]], [[kan-poet-duang]], [[day-master-personalities]] — 15+ หน้าสรุปภาษาไทยครอบคลุม: ทรัพย์ ความรัก อาชีพ สุขภาพ ลูกหลาน ดวงใหญ่ ดวงปี ดวงดี ดวงยาก ธุรกิจ การเปิดดวง
+- **Thai Tradition & Practice** — [[thai-bazi-tradition]], [[thai-reading-workflow]], [[thai-practitioners-overview]], [[bazi-business-entrepreneurship]] — บริบทปาจื้อในไทย: ประวัติ สำนัก Workflow นักปฏิบัติ และการประยุกต์ใช้ธุรกิจ
+- **Masters Directory** — [[nova-masters-consulting]], [[mang-pai-lineage]], [[thai-practitioners-overview]], [[joey-yap-methodology]] — โปรไฟล์นักปฏิบัติ: Master Kai, Mang Pai lineage, Joey Yap methodology, สำนักไทย
+- **Case Studies** — [[follow-pattern-example]], [[transformation-example]] — กรณีศึกษา: Follow Water Pattern และ 甲己化土格 Transformation
 
 ## Open questions
 - วิธีใดถูกต้องกว่าระหว่าง Balance-based กับ Pattern-based Useful God ในดวงเดียวกัน?
@@ -37,6 +41,9 @@ pages: 49
 - Classical texts ภาษาจีนกับ Modern Western interpretations ต่างกันมากแค่ไหนในทางปฏิบัติ?
 - แหล่งข้อมูล Classical Bazi ภาษาไทยเชิงวิชาการมีอยู่ที่ใดบ้าง?
 - Di Tian Sui ต้นฉบับดั้งเดิมเป็นงานของใคร — ยังไม่มีข้อสรุปชัดเจน
+- สำนักไทยมีสายสืบทอดตรงจากอาจารย์จีนหรือไม่? สายใดบ้าง?
+- Wu Guifu (吴贵甫) คือใครในสายสืบทอด Mang Pai — ยังไม่พบข้อมูลยืนยัน
+- กรณีศึกษาจากดวงจริงในบริบทไทย (Thai Historical Figure) ยังขาดอยู่
 
 ## Regional Traditions
 
@@ -50,6 +57,8 @@ Bazi has been adopted and significantly modified across East Asia:
 See [[Comparative Analysis — Classical Texts, Schools, and Regional Traditions|comparative-sources]] for detailed comparison table and research gaps.
 
 ## Recent updates
+- 2026-06-20: **Expansion Plan complete (compiled-stirring-newell)** — 23 new pages: Track A (9 Thai synthesis + 9 raw sources), Track B (6 concepts + 1 synthesis), Track C (2 case studies), Track D (5 masters incl. lily-chung.md); wiki grows 67→87 pages; synthesis layer 7→17, masters/ 5 หน้า, case-studies/ 2 หน้า; Liang Ruoyu ไม่พบในแหล่งใด (ไม่สร้างหน้า)
+- 2026-06-20: **Phase 1 Thai synthesis** — 6 หน้า Thai synthesis (wasana-ramruay/rak/karngan, pachueh-ying, dao-saphap-dao-chai, dao-sip-thit) + 6 raw sources; wiki 60→67 pages
 - 2026-06-10: lint pass — แก้ broken WikiLinks (15 links ใน 3 concept pages); เพิ่ม aliases ใน David Yek / Sean Chan; เพิ่ม 3 concept pages ในindex (day-master-strength, tiao-hou, yin-yang); ลบ link ผิดใน Sean Chan (Qi Men Dun Jia); อัพเดท overview + index
 - 2026-06-09: สร้าง 3 entity pages — [[Joey Yap (杨登亮)]], [[David Yek (泉緣 Quan Yuan)]], [[Sean Chan (Master Mystic / The Bazi App)]] — Contemporary Masters ในโลกภาษาอังกฤษ; สร้าง 3 concept pages — Yin-Yang, Day Master Strength, Tiao Hou
 - 2026-06-04: ingest Trey Bazi blog (35 articles) — 6-category Useful God, JianLu structure, Month Command exclusivity, Classical vs Modern 4-point distinction; ingest arXiv papers (2510.23337 + 2602.12889) — LLM BaZi benchmark frontier models 32–37%; entity pages Liang Xiangrun + Ni Haisha
