@@ -807,6 +807,29 @@ const EL_FULL={
 };
 
 const PILLAR_DOMAINS=['สังคม/บรรพบุรุษ','อาชีพ/เจ้านาย','ตัวตน/คู่ครอง','ลูก/อนาคต'];
+// TG × Pillar meaning [Year, Month, Day, Hour] — from wiki/concepts/ten-gods-pillar.md
+const TG_PILLAR_MEANING=[
+  // 0 比肩
+  ['เกิดในครอบครัวพึ่งตนเอง มีพี่น้องมาก ฝึกแข่งขันตั้งแต่เด็ก','บุคลิกอิสระ ทำงานเดี่ยวเก่ง แข่งขันสูงในอาชีพ ไม่ถนัดทำตามคำสั่ง','ตัวตนแข็งแกร่ง พึ่งตัวเองสูง คู่ครองมีบุคลิกใกล้เคียง','ลูกหลานเป็นตัวของตัวเองสูง ปลายชีวิตมีอิสรภาพและเป้าหมายส่วนตัว'],
+  // 1 劫财
+  ['ครอบครัวมีความผันผวนทางการเงิน เติบโตในสภาพแวดล้อมที่แข่งขันสูง','อาชีพมีความผันผวน ชอบเสี่ยง/ลงทุน เครือข่ายสังคมดีแต่ระวังเงิน','ตัวตนมีเสน่ห์สูง ระวังการใช้จ่ายและการเสี่ยง','ปลายชีวิตอาจมีภาระทางการเงิน แต่เครือข่ายสังคมกว้าง ลูกทะเยอทะยาน'],
+  // 2 食神
+  ['วัยเด็กได้รับความรักดี เติบโตในครอบครัวอุดมสมบูรณ์ มีพรสวรรค์ศิลปะ','บุคลิกอบอุ่น จัดการงานราบรื่น อาชีพใช้พรสวรรค์ตามธรรมชาติ','คู่ครองดีใจดี จัดการบ้านเรือนเก่ง มีทรัพย์สิน คุณภาพชีวิตคู่ดี','ปลายชีวิตสุขสบาย ลูกหลานกตัญญู มีความสุขในบั้นปลาย'],
+  // 3 伤官
+  ['บรรพบุรุษมีความคิดขบถ วัยเด็กดื้อรั้นแต่ฉลาด รู้สึกเป็นคนนอกในตระกูล','อาชีพขัดแย้งกับระบบ ชอบ freelance/สร้างสรรค์ ไม่ถนัดเป็นลูกจ้างองค์กร','มีเสน่ห์แต่ ego สูง คู่ครองต้องรับมือความเป็นตัวเอง ความสัมพันธ์ลึกแต่เสี่ยง','ลูกเก่งแต่ดื้อ ปลายชีวิตสร้างทรัพย์ได้ ("时柱伤官大富")'],
+  // 4 偏财
+  ['ครอบครัวมีรากจากธุรกิจ ได้รับอิทธิพลเรื่องการมองหาโอกาส','อาชีพด้านธุรกิจ/การค้า/การลงทุน เครือข่ายกว้างขวาง','ตัวตนชอบโอกาสใหม่ เสน่ห์ในการเจรจา คู่ครองมีบุคลิกเปิดเผย','ลูกหลานหัวธุรกิจ มีโอกาสได้รับมรดกในวัยชรา'],
+  // 5 正财
+  ['ครอบครัวมั่นคงทางการเงิน ถูกสอนให้ขยันซื่อสัตย์ มีระเบียบ','อาชีพมั่นคง ทำงานหนักสม่ำเสมอ รายได้จากแรงงานตนเอง','ตัวตนมีระเบียบด้านการเงิน คู่ครองขยันและรับผิดชอบ','ลูกหลานมีวินัยทางการเงิน ปลายชีวิตมีทรัพย์สินที่สะสมมา'],
+  // 6 七杀
+  ['เติบโตภายใต้กฎระเบียบเข้มงวด บรรพบุรุษอาจเป็นทหาร/ผู้มีอำนาจ','สภาพแวดล้อมทำงานเข้มแข็ง มีเจ้านายกดดัน — ถ้าควบคุมได้ → เป็นผู้นำ','ตัวตนมีแรงขับดันสูง ต้องพิสูจน์ตัวเองตลอด คู่ครองอาจแข็งกร้าว','ลูกหลานเป็นผู้นำ มีภาระหน้าที่หนัก ปลายชีวิตยังต้องสู้แต่แข็งแกร่ง'],
+  // 7 正官
+  ['ครอบครัวมีระเบียบวินัยสูง พ่อแม่มีตำแหน่งในสังคม รากฐานดี','ถนัดทำงานในระบบ — ราชการ บริษัทใหญ่ วิชาชีพที่มีใบอนุญาต','ตัวเองมีวินัยสูง คู่ครองมีตำแหน่งหรือบุคลิกแข็งแกร่ง','ลูกหลานมีความรับผิดชอบ ปลายชีวิตได้รับเกียรติยศ'],
+  // 8 偏印
+  ['บรรพบุรุษมีความรู้เฉพาะทางหรือศาสตร์ลี้ลับ วัยเด็กมีความคิดลึกเกินวัย','อาชีพนอกกระแส ความรู้เฉพาะทาง งานวิจัย/ลึกลับ/ที่ปรึกษา','ตัวตนความรู้ลึกแต่ไม่ conventional ชอบความเป็นส่วนตัว','ปลายชีวิตสนใจจิตวิญญาณ/วิชาการ ลูกฉลาดแต่ความคิดซับซ้อน'],
+  // 9 正印
+  ['เกิดในตระกูลนักวิชาการ วัยเด็กได้รับความคุ้มครองและการศึกษาดี','อาชีพด้านการศึกษา/วิจัย/ให้คำปรึกษา มีผู้อุปถัมภ์ในอาชีพ','ตัวเองให้ความสำคัญกับการเรียนรู้ คู่ครองเป็นผู้อุปถัมภ์หรือครู','ปลายชีวิตมีความสงบผ่านความรู้/ศาสนา ลูกหลานฉลาดและมีการศึกษา'],
+];
 
 // UG Life Guidance — per Useful God element: career / relationship / finance directions
 const UG_LIFE_GUIDANCE={
@@ -1790,7 +1813,7 @@ function renderTenGods(chart,sec){
     }
     row.insertCell().textContent=tgi>=0?TG_ZH[tgi]:'—';
     row.insertCell().textContent=tgi>=0?TG_TH[tgi]:'—';
-    row.insertCell().textContent=tgi>=0?TG_DESC[tgi]:'—';
+    {const mc=row.insertCell();if(tgi>=0){const pi=p.label.includes('ปี')?0:p.label.includes('เดือน')?1:p.label.includes('วัน')?2:3;const pm=TG_PILLAR_MEANING[tgi]?.[pi];mc.innerHTML=pm?`<span title="${pm.replace(/"/g,'&quot;')}" style="cursor:help">${TG_DESC[tgi]} <span style="font-size:.65rem;color:var(--primary2)">ℹ</span></span>`:`${TG_DESC[tgi]}`;}else mc.textContent='—';}
   }
   sec.appendChild(table);
 
@@ -1892,9 +1915,19 @@ function scoreAnnualYear(row,chart){
     }
   }
 
+  // 六害 — check if annual branch harms any chart pillar branch
+  const sixHaiPillars=[];
+  for(const rule of BRANCH_SIX_HAI){
+    if(rule.a===row.yBi&&chartBis.includes(rule.b)){
+      const pi=chartBis.indexOf(rule.b);if(pi>=0)sixHaiPillars.push(PILLAR_NAME[pi]);
+    } else if(rule.b===row.yBi&&chartBis.includes(rule.a)){
+      const pi=chartBis.indexOf(rule.a);if(pi>=0)sixHaiPillars.push(PILLAR_NAME[pi]);
+    }
+  }
+
   if(!ugEl){
     const base=clashDay?1:clashPillars.length?2:2;
-    return{stars:base,label:STAR_LABEL[base-1],isDouble:false,clashPillars,sixHePillars};
+    return{stars:base,label:STAR_LABEL[base-1],isDouble:false,clashPillars,sixHePillars,sixHaiPillars};
   }
   const ys=STEMS[row.ySi],yb=BRANCHES[row.yBi];
   let score=0;
@@ -1905,8 +1938,9 @@ function scoreAnnualYear(row,chart){
   if(clashDay)score-=2; else if(clashPillars.length)score-=1;
   if(sixHePillars.length)score+=1;
   const lpBonus=curLP&&(STEMS[curLP.si].el===ugEl||BRANCHES[curLP.bi].el===ugEl||GEN[STEMS[curLP.si].el]===ugEl);
+  if(sixHaiPillars.length)score-=1;
   const stars=Math.max(1,Math.min(4,score+2));
-  return{stars,label:STAR_LABEL[stars-1],isDouble:lpBonus&&stars>=3,clashPillars,sixHePillars};
+  return{stars,label:STAR_LABEL[stars-1],isDouble:lpBonus&&stars>=3,clashPillars,sixHePillars,sixHaiPillars};
 }
 
 function renderPattern(chart,sec){
@@ -2190,7 +2224,7 @@ function renderAnnualLuck(chart,sec){
 
   // Summary boxes: top years + change years
   const topYears=scored.filter(r=>r.stars>=3).sort((a,b)=>b.stars-a.stars||b.isDouble-a.isDouble).slice(0,3);
-  const changeYears=scored.filter(r=>r.clashPillars&&r.clashPillars.length);
+  const changeYears=scored.filter(r=>(r.clashPillars&&r.clashPillars.length)||(r.sixHaiPillars&&r.sixHaiPillars.length));
   if(topYears.length||changeYears.length){
     const box=document.createElement('div');
     box.style.cssText='display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.7rem';
@@ -2207,10 +2241,17 @@ function renderAnnualLuck(chart,sec){
     if(changeYears.length){
       const cbox=document.createElement('div');
       cbox.style.cssText='flex:1;min-width:160px;background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:8px;padding:.55rem .8rem;font-size:.8rem';
-      cbox.innerHTML=`<div style="font-weight:700;margin-bottom:.3rem;color:#d97706">⚡ ปีเปลี่ยนแปลง (六冲)</div>`+
+      const PNAMES=['ปี','เดือน','วัน','ชั่วโมง'];
+      const PDOMS=['สังคม','อาชีพ','ตัวตน','อนาคต'];
+      cbox.innerHTML=`<div style="font-weight:700;margin-bottom:.3rem;color:#d97706">⚡ ปีเปลี่ยนแปลง</div>`+
         changeYears.map(r=>{
           const ys=STEMS[r.ySi],yb=BRANCHES[r.yBi];
-          return `<div>${r.year} (${ys.zh}${yb.zh}) — ชนเสา${r.clashPillars.join('/')}</div>`;
+          const clashParts=(r.clashPillars||[]).map(p=>{const i=PNAMES.indexOf(p);return i>=0?`${p}(${PDOMS[i]})`:p;});
+          const haiParts=(r.sixHaiPillars||[]).map(p=>{const i=PNAMES.indexOf(p);return i>=0?`${p}(${PDOMS[i]})`:p;});
+          let line=`${r.year} (${ys.zh}${yb.zh})`;
+          if(clashParts.length)line+=` ⚡${clashParts.join('/')}`;
+          if(haiParts.length)line+=` ⚠️${haiParts.join('/')}`;
+          return `<div>${line}</div>`;
         }).join('');
       box.appendChild(cbox);
     }
@@ -2230,8 +2271,13 @@ function renderAnnualLuck(chart,sec){
     const lpStr=row.lp?`${STEMS[row.lp.si].zh}${BRANCHES[row.lp.bi].zh} (${row.lp.startAge}–${row.lp.endAge})`:'—';
     const qColor=row.stars>=3?'#16a34a':row.stars===1?'#dc2626':'#6b7280';
     const doubleTag=row.isDouble?`<span style="font-size:.63rem;color:#d97706;font-weight:700">✦ดาวคู่</span>`:'';
-    const clashTag=row.clashPillars&&row.clashPillars.length?`<span style="font-size:.63rem;color:#dc2626;font-weight:600">⚡ชน${row.clashPillars.join('/')}</span>`:'';
+    const _PNMS=['ปี','เดือน','วัน','ชั่วโมง'],_PDOM=['สังคม','อาชีพ','ตัวตน','อนาคต'];
+    const _fmtDom=arr=>(arr||[]).map(p=>{const i=_PNMS.indexOf(p);return i>=0?`${p}(${_PDOM[i]})`:p;});
+    const _clashD=_fmtDom(row.clashPillars);
+    const clashTag=_clashD.length?`<span style="font-size:.63rem;color:#dc2626;font-weight:600" title="六冲 กระทบพื้นที่ชีวิต: ${_clashD.join(', ')}">⚡ชน${_clashD.join('/')}</span>`:'';
     const sixHeTag=row.sixHePillars&&row.sixHePillars.length?`<span style="font-size:.63rem;color:#2563eb;font-weight:600">合${row.sixHePillars.join('/')}</span>`:'';
+    const _haiD=_fmtDom(row.sixHaiPillars);
+    const sixHaiTag=_haiD.length?`<span style="font-size:.63rem;color:#7c3aed;font-weight:600" title="六害 เสียดทานเบาๆ: ${_haiD.join(', ')}">⚠️ร้าว${_haiD.join('/')}</span>`:'';
     const transTag=row.isTransition?`<span style="font-size:.6rem;color:#7c3aed;font-weight:600">🔄LP</span>`:'';
     const officerIdx=(row.yBi-chart.monthP.bi+12)%12;
     const officer=OFFICERS_12[officerIdx];
@@ -2239,7 +2285,7 @@ function renderAnnualLuck(chart,sec){
     tr.innerHTML=`<td>${row.year}${row.isCurrent?' ◀':''}</td><td>${row.age}</td>
       <td style="color:${elColor(ys.el)}">${ys.zh}${yb.zh}</td><td>${yb.an}</td>
       <td>${tgStr}</td><td style="font-size:.8rem">${lpStr}</td>
-      <td style="font-weight:600;color:${qColor};white-space:nowrap">${row.label} ${doubleTag}${clashTag}${sixHeTag}${transTag}</td>
+      <td style="font-weight:600;color:${qColor};white-space:nowrap">${row.label} ${doubleTag}${clashTag}${sixHeTag}${sixHaiTag}${transTag}</td>
       <td style="font-size:.75rem;color:${offColor};font-weight:600" title="${officer.th} — วงจรเจ้าวัน 12 ตัว (建除十二神) ตาม Tong Shu">${officer.zh} ${officer.th}</td>`;
   }
   sec.appendChild(table);
@@ -2275,9 +2321,14 @@ function renderAnnualLuck(chart,sec){
     }
     // Sentence 4: Clash warning or harmony bonus
     if(curRow.clashPillars&&curRow.clashPillars.length){
-      narr+=` อย่างไรก็ตาม ปีนี้มี<strong>六冲กับเสา${curRow.clashPillars.join('/')}</strong> — ปีแห่งการเปลี่ยนแปลงสำคัญ อาจมีเหตุการณ์ที่บังคับให้ต้องตัดสินใจ หรือสภาพแวดล้อมเปลี่ยนโดยไม่ทันตั้งตัว ใช้สติมากกว่าแรงปฏิกิริยา`;
+      const _clD=curRow.clashPillars.map(p=>{const i=['ปี','เดือน','วัน','ชั่วโมง'].indexOf(p);return i>=0?`${p}(${PILLAR_DOMAINS[i]})`:p;});
+      narr+=` อย่างไรก็ตาม ปีนี้มี<strong>六冲กับเสา${_clD.join('/')}</strong> — ปีแห่งการเปลี่ยนแปลงสำคัญ อาจมีเหตุการณ์ที่บังคับให้ต้องตัดสินใจ หรือสภาพแวดล้อมเปลี่ยนโดยไม่ทันตั้งตัว ใช้สติมากกว่าแรงปฏิกิริยา`;
     } else if(curRow.sixHePillars&&curRow.sixHePillars.length){
       narr+=` ปีนี้มี<strong>六合กับเสา${curRow.sixHePillars.join('/')}</strong> — ธาตุปีประสานกับดวงชะตา เป็นสัญญาณดีสำหรับความสัมพันธ์และความร่วมมือ`;
+    }
+    if(curRow.sixHaiPillars&&curRow.sixHaiPillars.length&&!(curRow.clashPillars&&curRow.clashPillars.length)){
+      const _haD=curRow.sixHaiPillars.map(p=>{const i=['ปี','เดือน','วัน','ชั่วโมง'].indexOf(p);return i>=0?`${p}(${PILLAR_DOMAINS[i]})`:p;});
+      narr+=` ⚠️ ปีนี้มี<strong>六害กับเสา${_haD.join('/')}</strong> — อาจมีความล่าช้าหรือเสียดทานเบาๆ ในพื้นที่ชีวิตนั้น ไม่รุนแรงเท่า六冲 แต่ควรระวัง`;
     }
 
     const narrDiv=document.createElement('div');
@@ -2316,6 +2367,13 @@ function renderShenSha(chart,sec){
           lpNoteHtml=`<div style="font-size:.72rem;font-weight:600;color:#2563eb;margin-top:.25rem;padding:.1rem .3rem;border-radius:4px;background:#2563eb18">↗ LP หนุนเสริมดาวนี้ทางอ้อม</div>`;
         else if(lpEls.some(e=>CTR[e]===ssEl))
           lpNoteHtml=`<div style="font-size:.72rem;font-weight:600;color:#6b7280;margin-top:.25rem;padding:.1rem .3rem;border-radius:4px;background:#6b728018">↘ LP ลดพลังดาวนี้ในช่วงนี้</div>`;
+      }
+    }
+    if(!lpNoteHtml&&luckPillars){
+      const ssEl2=SS_ELEMENT[ss.zh]||(ss.zh==='羊刃'?dmEl:null);
+      if(ssEl2){
+        const nextAct=luckPillars.filter(lp=>lp.startAge>currentAge).find(lp=>[STEMS[lp.si].el,BRANCHES[lp.bi].el].includes(ssEl2));
+        if(nextAct)lpNoteHtml=`<div style="font-size:.72rem;color:#2563eb;margin-top:.25rem;padding:.1rem .3rem;border-radius:4px;background:#2563eb12">📅 LP ถัดไปที่จะเปิดดาว: ${STEMS[nextAct.si].zh}${BRANCHES[nextAct.bi].zh} (อายุ ${nextAct.startAge}–${nextAct.endAge})</div>`;
       }
     }
     card.innerHTML=`<div class="ss-zh">${ss.auspicious?'✦':'⚠'} ${ss.zh} ${ss.th}</div>
