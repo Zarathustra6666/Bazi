@@ -47,6 +47,9 @@ input:focus,select:focus{outline:2px solid var(--primary2);border-color:var(--pr
 .btn{display:block;width:100%;padding:.8rem;margin-top:.8rem;background:var(--primary);color:#f5e6c8;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:1px}
 .btn:hover{background:var(--primary2)}
 .btn-sm{padding:.4rem .9rem;font-size:.85rem;border-radius:6px;border:none;cursor:pointer;background:var(--primary);color:#f5e6c8;margin-top:.5rem}
+.rel-btn{padding:.35rem .8rem;font-size:.82rem;border-radius:20px;border:1.5px solid var(--border);background:var(--input-bg);color:var(--muted);cursor:pointer;font-weight:600;transition:all .15s}
+.rel-btn:hover{border-color:var(--primary);color:var(--primary)}
+.rel-btn.active{background:var(--primary);color:#f5e6c8;border-color:var(--primary)}
 #output{display:none}
 /* Alerts */
 .alert{padding:.65rem 1rem;border-radius:6px;font-size:.85rem;margin-bottom:.6rem;border-left:4px solid}
@@ -332,7 +335,13 @@ input:focus,select:focus{outline:2px solid var(--primary2);border-color:var(--pr
 
 <div id="compat-wrap" style="display:none" class="card">
   <h2>❤ ตรวจสอบความเข้ากัน</h2>
-  <p style="font-size:.85rem;color:var(--muted);margin-bottom:.8rem">กรอกข้อมูลคนที่ 2 — ระบบจะวิเคราะห์ความสัมพันธ์ระหว่าง Day Master ทั้งสอง</p>
+  <div class="rel-type-bar" style="display:flex;gap:.4rem;margin-bottom:.7rem;flex-wrap:wrap">
+    <button type="button" class="rel-btn active" data-role="romantic">❤️ คู่รัก</button>
+    <button type="button" class="rel-btn" data-role="marriage">💒 คู่สมรส</button>
+    <button type="button" class="rel-btn" data-role="friend">🤝 เพื่อน</button>
+    <button type="button" class="rel-btn" data-role="business">💼 หุ้นส่วน</button>
+  </div>
+  <p style="font-size:.85rem;color:var(--muted);margin-bottom:.8rem">กรอกข้อมูลคนที่ 2 — ระบบจะวิเคราะห์ความสัมพันธ์ 4 มิติตามบทบาทที่เลือก</p>
   <form id="compat-form">
     <div class="form-grid">
       <div>
@@ -793,6 +802,42 @@ const TG_COMPAT_MEANING=[
   {feel:'อาจารย์/แรงบันดาลใจ',tip:'เรียนรู้จากกัน แต่อาจรู้สึกว่าถูกควบคุมหรือดูแลมาก'},// 8 偏印
   {feel:'ผู้ดูแล/ผู้อุปถัมภ์',tip:'อบอุ่นและปลอดภัย แต่อาจขาดความตื่นเต้นทางโรแมนติก'},// 9 正印
 ];
+const TG_FRIEND_MEANING=[
+  {feel:'เพื่อนสนิทร่วมชะตา',    tip:'เข้าใจกันสุด เหมือนรู้จักมานาน ทำกิจกรรมร่วมกันได้ไม่รู้เบื่อ'},
+  {feel:'เพื่อนคู่แข่ง',          tip:'กระตุ้นศักยภาพซึ่งกัน ดึงกันไปข้างหน้าได้ดี ระวังหมั่นไส้กันบ้าง'},
+  {feel:'เพื่อนที่คุณดูแล',        tip:'สนุกสนานร่วมกัน คุณมักเป็นฝ่ายให้และจัดการให้'},
+  {feel:'เพื่อนสร้างสรรค์',        tip:'ระเบิดความคิดใหม่ร่วมกัน เหมาะงานศิลปะและนวัตกรรม'},
+  {feel:'เพื่อนผจญภัย',            tip:'ชวนกันลองสิ่งใหม่ เติมพลังชีวิต สนุกด้วยกันเสมอ'},
+  {feel:'เพื่อนวางใจได้',          tip:'น่าเชื่อถือ ช่วยวางแผนและจัดการได้ดี เป็นที่พึ่งในเรื่องจริงจัง'},
+  {feel:'เพื่อนท้าทาย',            tip:'กระตุ้นให้เติบโต บางครั้งเจ็บปวดแต่ดึงศักยภาพออกมาได้มาก'},
+  {feel:'เพื่อนที่แนะนำชีวิต',    tip:'ให้คำแนะนำที่ดี ช่วยให้มีระเบียบวินัยและทิศทางในชีวิตมากขึ้น'},
+  {feel:'เพื่อนทางปัญญา',          tip:'แบ่งปันความรู้พิเศษ คุยลึกด้านความคิดและปรัชญาชีวิตได้'},
+  {feel:'เพื่อนผู้สนับสนุน',       tip:'อบอุ่น ดูแล เป็นที่พึ่งพาทางใจในยามยาก'},
+];
+const TG_BUSINESS_MEANING=[
+  {feel:'หุ้นส่วนเท่าเทียม',      tip:'ทักษะซ้อนทับ — ต้องแบ่งบทบาทให้ชัดเจน มิฉะนั้นงานจะซ้ำซ้อน'},
+  {feel:'หุ้นส่วนแข่งขัน',        tip:'กระตุ้นซึ่งกัน แต่ต้องมีสัญญาชัดเรื่องส่วนแบ่งผลประโยชน์'},
+  {feel:'คุณเป็นผู้ผลิต',          tip:'คุณสร้างงาน เขา/เธอต่อยอด — ดีสำหรับธุรกิจสร้างสรรค์'},
+  {feel:'หุ้นส่วนนวัตกรรม',        tip:'เหมาะ startup และงานที่ต้องการความคิดใหม่ๆ อย่างต่อเนื่อง'},
+  {feel:'หุ้นส่วนโอกาส',           tip:'เก่งหาลูกค้าและโอกาสใหม่ ดีสำหรับ business development'},
+  {feel:'หุ้นส่วนการเงิน',         tip:'รอบคอบ จัดการการเงินดี ทำให้ธุรกิจมั่นคงระยะยาว'},
+  {feel:'หุ้นส่วนขับเคลื่อน',     tip:'กดดันให้ทีมเดินหน้า เหมาะงานที่ต้องการผู้นำที่แข็งแกร่ง'},
+  {feel:'หุ้นส่วนโครงสร้าง',      tip:'วางระบบและกฎชัดเจน เหมาะธุรกิจที่ต้องการการจัดการที่ดี'},
+  {feel:'หุ้นส่วนความรู้',         tip:'เสริมด้านวิจัยและความรู้เฉพาะทาง ดีสำหรับ knowledge business'},
+  {feel:'หุ้นส่วนระยะยาว',         tip:'ให้การสนับสนุนและพัฒนาทีม เหมาะธุรกิจที่ต้องการความยั่งยืน'},
+];
+const REL_WEIGHTS={
+  romantic:{dm:0.40,branch:0.30,stem:0.15,element:0.15},
+  marriage:{dm:0.35,branch:0.35,stem:0.10,element:0.20},
+  friend:  {dm:0.15,branch:0.35,stem:0.15,element:0.35},
+  business:{dm:0.20,branch:0.25,stem:0.15,element:0.40},
+};
+const REL_META={
+  romantic:{icon:'❤️',label:'คู่รัก',   accent:'#e91e63'},
+  marriage:{icon:'💒',label:'คู่สมรส',  accent:'#f59e0b'},
+  friend:  {icon:'🤝',label:'เพื่อน',   accent:'#0ea5e9'},
+  business:{icon:'💼',label:'หุ้นส่วน', accent:'#6366f1'},
+};
 
 // ── C1: Ten Gods Affection combinations (情) ──
 const TG_AFFECTIONS=[
@@ -3343,6 +3388,213 @@ function renderInterpretation(chart,sec){
 }
 
 // ─── D2: COMPATIBILITY ────────────────────────────────────────────────────
+
+// Helper: branch interaction between two Day Branches (cross-chart)
+function computeBranchInteraction(biA,biB){
+  for(const h of BRANCH_SIX_HE){
+    if((h.a===biA&&h.b===biB)||(h.a===biB&&h.b===biA))
+      return{type:'he',zh:h.zh,th:h.th,score:90,narr:'六合 ('+h.th+') — '+h.narr};
+  }
+  for(const t of BRANCH_THREE_HE){
+    if(t.tri.includes(biA)&&t.tri.includes(biB))
+      return{type:'three',zh:t.zh,th:t.th,score:70,narr:'三合 ('+t.th+') — '+t.narr};
+  }
+  for(const c of BRANCH_SIX_CHONG){
+    if((c.a===biA&&c.b===biB)||(c.a===biB&&c.b===biA))
+      return{type:'chong',zh:c.zh,th:c.th,score:15,narr:'六冲 ('+c.th+') — '+c.narr};
+  }
+  for(const h of BRANCH_SIX_HAI){
+    if((h.a===biA&&h.b===biB)||(h.a===biB&&h.b===biA))
+      return{type:'hai',zh:h.zh,th:h.th,score:35,narr:'六害 ('+h.th+') — '+h.narr};
+  }
+  const bA=BRANCHES[biA],bB=BRANCHES[biB];
+  return{type:'none',zh:'',th:'',score:50,narr:'ไม่มี interaction พิเศษระหว่างกิ่งดิน '+bA.th+' กับ '+bB.th+' — พลังงานทั้งสองเป็นอิสระต่อกัน'};
+}
+
+// Helper: stem chemistry between two Day Masters
+function computeStemChemistry(dmIdxA,dmIdxB){
+  for(const c of STEM_FIVE_HE){
+    if((c.a===dmIdxA&&c.b===dmIdxB)||(c.a===dmIdxB&&c.b===dmIdxA))
+      return{type:'combo',score:90,narr:'天干五合 '+c.zh+' — '+c.narr};
+  }
+  const elA=STEMS[dmIdxA].el,elB=STEMS[dmIdxB].el;
+  if(elA===elB) return{type:'same',score:55,narr:'ธาตุเดียวกัน ('+EL_TH[elA]+') — เข้าใจกันดี มีพลังงานคล้ายคลึง'};
+  if(GEN[elA]===elB) return{type:'gen',score:65,narr:EL_TH[elA]+' ผลิต '+EL_TH[elB]+' — คุณเสริมพลังให้เขา/เธอตามธรรมชาติ'};
+  if(GEN[elB]===elA) return{type:'gen',score:65,narr:EL_TH[elB]+' ผลิต '+EL_TH[elA]+' — เขา/เธอเสริมพลังให้คุณตามธรรมชาติ'};
+  if(CTR[elA]===elB) return{type:'ctrl',score:35,narr:EL_TH[elA]+' ควบคุม '+EL_TH[elB]+' — แรงกดดันแฝงในความสัมพันธ์'};
+  if(CTR[elB]===elA) return{type:'ctrl',score:35,narr:EL_TH[elB]+' ควบคุม '+EL_TH[elA]+' — แรงกดดันแฝงในความสัมพันธ์'};
+  return{type:'neutral',score:50,narr:'ธาตุ'+EL_TH[elA]+' และ '+EL_TH[elB]+' — ไม่มี interaction โดยตรง พลังงานเป็นอิสระ'};
+}
+
+// Helper: element chemistry across both charts
+function computeElementChemistry(chartA,chartB){
+  const elA=chartA.elBalance||{},elB=chartB.elBalance||{};
+  const ugA=chartA.usefulGod,ugB=chartB.usefulGod;
+  const bHasAug=ugA&&(elB[ugA]||0)>15;
+  const aHasBug=ugB&&(elA[ugB]||0)>15;
+  const els=['wood','fire','earth','metal','water'];
+  const combined={};
+  els.forEach(e=>{combined[e]=((elA[e]||0)+(elB[e]||0))/2;});
+  const allPresent=els.every(e=>combined[e]>5);
+  const maxEl=Math.max(...els.map(e=>combined[e]));
+  const topEl=els.find(e=>combined[e]===maxEl);
+  if(bHasAug&&aHasBug){
+    return{score:90,complement:true,narr:'เติมเต็มซึ่งกัน — คุณมีธาตุที่เขา/เธอต้องการ และเขา/เธอมีธาตุที่คุณต้องการ ทั้งคู่เสริมกันได้อย่างลงตัว'};
+  }
+  if(bHasAug||aHasBug){
+    const who=bHasAug?'เขา/เธอมีธาตุ '+EL_TH[ugA]+' ที่คุณต้องการ':'คุณมีธาตุ '+EL_TH[ugB]+' ที่เขา/เธอต้องการ';
+    return{score:75,complement:true,narr:'เสริมกันทางธาตุ — '+who+' — ช่วยเพิ่มพลังงานที่ขาดให้อีกฝ่าย'};
+  }
+  if(allPresent){
+    return{score:65,complement:false,narr:'ดวงรวมกันครบ 5 ธาตุ — ไม่มีธาตุขาดหาย ความสัมพันธ์นี้สมดุลและรอบด้าน'};
+  }
+  if(maxEl>55){
+    return{score:30,complement:false,narr:'ธาตุ'+EL_TH[topEl]+' ครอบงำเมื่อรวมดวงกัน — อาจเกิดความไม่สมดุลที่ต้องระวัง'};
+  }
+  return{score:50,complement:false,narr:'ธาตุทั้งสองดวงอยู่ในระดับกลาง — ไม่มีการเสริมพิเศษ แต่ก็ไม่ขัดแย้งกัน'};
+}
+
+// Helper: DM score per role
+function getDMScoreForRole(tgAtoB,tgBtoA,gA,gB,role){
+  const isSpouseFor=(tg,g)=>(g==='m'&&(tg===5||tg===4))||(g==='f'&&(tg===7||tg===6));
+  const aSeesSpouse=isSpouseFor(tgAtoB,gA);
+  const bSeesSpouse=isSpouseFor(tgBtoA,gB);
+  const isPeer=(t)=>t===0||t===1;
+  const isOutput=(t)=>t===2||t===3;
+  const isResource=(t)=>t===8||t===9;
+  const isWealthOfficer=(t)=>t>=4&&t<=7;
+  const isInjuryOfficer=(a,b)=>(a===3&&b===7)||(a===7&&b===3);
+  if(role==='romantic'||role==='marriage'){
+    if(aSeesSpouse&&bSeesSpouse) return 100;
+    if(aSeesSpouse||bSeesSpouse) return 75;
+    if(isWealthOfficer(tgAtoB)&&isWealthOfficer(tgBtoA)) return 65;
+    if(isInjuryOfficer(tgAtoB,tgBtoA)) return 10;
+    if(isPeer(tgAtoB)&&isPeer(tgBtoA)) return 35;
+    if(isOutput(tgAtoB)||isOutput(tgBtoA)||isResource(tgAtoB)||isResource(tgBtoA)) return 50;
+    return 45;
+  }
+  if(role==='friend'){
+    if(isPeer(tgAtoB)&&isPeer(tgBtoA)) return 90;
+    if((isOutput(tgAtoB)||isResource(tgAtoB))&&(isOutput(tgBtoA)||isResource(tgBtoA))) return 80;
+    if(isOutput(tgAtoB)||isOutput(tgBtoA)||isResource(tgAtoB)||isResource(tgBtoA)) return 75;
+    if(isWealthOfficer(tgAtoB)||isWealthOfficer(tgBtoA)) return 55;
+    if(aSeesSpouse||bSeesSpouse) return 40;
+    return 60;
+  }
+  const goodBiz=(a,b)=>(a===5&&b===9)||(a===9&&b===5)||(a===4&&b===2)||(a===2&&b===4)||
+                       (a===3&&b===7)||(a===7&&b===3)||(a===3&&b===6)||(a===2&&b===7);
+  if(goodBiz(tgAtoB,tgBtoA)) return 88;
+  if(isWealthOfficer(tgAtoB)&&isWealthOfficer(tgBtoA)) return 72;
+  if(isWealthOfficer(tgAtoB)||isWealthOfficer(tgBtoA)) return 62;
+  if(isPeer(tgAtoB)&&isPeer(tgBtoA)) return 50;
+  if(isInjuryOfficer(tgAtoB,tgBtoA)) return 20;
+  return 55;
+}
+
+// Helper: TG meaning per role
+function getTGRoleMeaning(tgIdx,role){
+  if(role==='friend') return TG_FRIEND_MEANING[tgIdx];
+  if(role==='business') return TG_BUSINESS_MEANING[tgIdx];
+  return TG_COMPAT_MEANING[tgIdx];
+}
+
+function computeCompatibilityV2(chartA,chartB,relType){
+  const tgAtoB=getTenGodIdx(chartA.dmIdx,chartB.dmIdx);
+  const tgBtoA=getTenGodIdx(chartB.dmIdx,chartA.dmIdx);
+  const dmScore=getDMScoreForRole(tgAtoB,tgBtoA,chartA.gender,chartB.gender,relType);
+  const branchResult=computeBranchInteraction(chartA.dayP.bi,chartB.dayP.bi);
+  const stemResult=computeStemChemistry(chartA.dmIdx,chartB.dmIdx);
+  const elementResult=computeElementChemistry(chartA,chartB);
+  const w=REL_WEIGHTS[relType]||REL_WEIGHTS.romantic;
+  const totalScore=Math.round(dmScore*w.dm + branchResult.score*w.branch + stemResult.score*w.stem + elementResult.score*w.element);
+  const stars=totalScore>=85?5:totalScore>=70?4:totalScore>=50?3:totalScore>=35?2:1;
+  const meta=REL_META[relType];
+  const headlines={
+    5:['ดวงคู่ที่สมบูรณ์แบบ — ทุกมิติส่งเสริมกัน','เสริมซึ่งกันและกันอย่างลงตัวในทุกด้าน'],
+    4:['ความเข้ากันที่แข็งแกร่ง — จุดแข็งเด่นชัด','ส่วนใหญ่ลงตัว — มีจุดให้พัฒนาบ้าง'],
+    3:['ความสัมพันธ์ที่สมดุล — ขึ้นอยู่กับการพัฒนาร่วมกัน','กลางๆ — มีทั้งจุดเสริมและจุดเสียดทาน'],
+    2:['มีแรงเสียดทาน — ต้องใช้ความเข้าใจมาก','ความแตกต่างชัดเจน — ต้องปรับตัวจากทั้งสองฝ่าย'],
+    1:['ท้าทายอย่างมาก — ต้องการความพยายามสูง','ขัดแย้งในหลายมิติ — ต้องการการสื่อสารและความเข้าใจอย่างลึกซึ้ง'],
+  };
+  const headline=headlines[stars][Math.floor(Math.random()*2)];
+  return{relType,tgAtoB,tgBtoA,dmScore,branchResult,stemResult,elementResult,totalScore,stars,headline};
+}
+
+function renderCompatibilityV2(chartA,chartB,sec,relType){
+  sec.innerHTML='';
+  const res=computeCompatibilityV2(chartA,chartB,relType);
+  const{tgAtoB,tgBtoA,totalScore,stars,branchResult,stemResult,elementResult,headline}=res;
+  const meta=REL_META[relType];
+  const dmA=STEMS[chartA.dmIdx],dmB=STEMS[chartB.dmIdx];
+  const profA=DM_PROFILES[chartA.dmIdx],profB=DM_PROFILES[chartB.dmIdx];
+  const cmA=getTGRoleMeaning(tgAtoB,relType),cmB=getTGRoleMeaning(tgBtoA,relType);
+  const starHTML='★'.repeat(stars)+'☆'.repeat(5-stars);
+  const barColor=totalScore>=80?'#10b981':totalScore>=60?'#f59e0b':totalScore>=40?'#f97316':'#ef4444';
+  const branchColor=branchResult.type==='he'||branchResult.type==='three'?'#10b981':branchResult.type==='chong'?'#ef4444':branchResult.type==='hai'?'#f97316':'#6b7280';
+  const stemColor=stemResult.type==='combo'?'#10b981':stemResult.type==='gen'?'#0ea5e9':stemResult.type==='ctrl'?'#ef4444':'#6b7280';
+  const elColor2=elementResult.complement?'#10b981':elementResult.score>=60?'#0ea5e9':'#6b7280';
+  const insightMap={
+    romantic:`ดาวคู่ครองในดวง: ชาย→ 正财/偏财, หญิง→ 正官/七杀 ดวงใหญ่ที่นำธาตุ Useful God ของแต่ละฝ่ายจะเป็นช่วงที่ความสัมพันธ์รุ่งเรืองที่สุด`,
+    marriage:`ความมั่นคงระยะยาวดูจาก Day Branch — กิ่งดิน${branchResult.type==='he'?'ประสานกัน เป็นสัญญาณดวงคู่ที่ยั่งยืน':branchResult.type==='chong'?'ชนกัน ต้องใช้ความพยายามและการสื่อสารสูงมาก':'ไม่ขัดแย้งกัน ความมั่นคงขึ้นอยู่กับ Luck Pillar'} เรื่องลูกดูจาก Hour Pillar ของแต่ละดวง`,
+    friend:`จุดแข็งร่วมกัน: ${profA.image} ${dmA.th} + ${profB.image} ${dmB.th} — ${elementResult.complement?'ธาตุเสริมกัน เหมาะทำโปรเจ็กต์ที่ต้องการทักษะหลายด้าน':'มีพลังงานที่แตกต่าง เหมาะมิตรภาพที่ขยายมุมมอง'} กิจกรรมที่เหมาะ: ${STEMS[chartA.dmIdx].el==='fire'||STEMS[chartB.dmIdx].el==='fire'?'งานสร้างสรรค์ กิจกรรมสังคม':'งานที่ต้องการสมาธิและความลึก'}`,
+    business:`บทบาทที่เสริมกัน — ${profA.image} ${dmA.th}: ${DM_PROFILES[chartA.dmIdx].careers.split('·')[0].trim()} / ${profB.image} ${dmB.th}: ${DM_PROFILES[chartB.dmIdx].careers.split('·')[0].trim()} ${elementResult.complement?'ธาตุเสริมกัน = ทีมที่สมดุล ครอบคลุมทักษะได้กว้าง':'ควรวางบทบาทให้ชัดเจนตั้งแต่ต้น'}`,
+  };
+  const card=document.createElement('div');
+  card.style.cssText='border:2px solid '+meta.accent+'44;border-radius:14px;padding:1.1rem 1.3rem;background:linear-gradient(135deg,'+meta.accent+'08,var(--surface))';
+  card.innerHTML=`
+    <div style="margin-bottom:.9rem">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+        <span style="background:${meta.accent}22;color:${meta.accent};font-size:.78rem;font-weight:700;padding:.2rem .55rem;border-radius:20px;border:1px solid ${meta.accent}44">${meta.icon} ${meta.label}</span>
+        <span style="font-size:.82rem;color:var(--muted)"><span style="color:${elColor(dmA.el)};font-weight:700">${profA.image} ${dmA.zh}</span> × <span style="color:${elColor(dmB.el)};font-weight:700">${profB.image} ${dmB.zh}</span></span>
+      </div>
+      <div style="margin:.5rem 0">
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:.25rem"><span>ความเข้ากัน</span><span style="font-weight:700;color:${barColor}">${totalScore}/100</span></div>
+        <div style="background:var(--input-bg);border-radius:6px;height:8px;overflow:hidden"><div style="height:100%;width:${totalScore}%;background:${barColor};border-radius:6px;transition:width .4s"></div></div>
+      </div>
+      <div style="font-size:1.35rem;color:${barColor};letter-spacing:2px">${starHTML}</div>
+      <div style="font-weight:700;font-size:.9rem;color:var(--text);margin-top:.2rem">${headline}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem">
+      <div style="background:var(--input-bg);border-radius:10px;padding:.7rem;text-align:center">
+        <div style="font-size:.7rem;color:var(--muted);font-weight:700;margin-bottom:.3rem">${profA.image} คุณมองเขา/เธอเป็น</div>
+        <div style="font-weight:800;font-size:.95rem;color:var(--primary)">${TG_ZH[tgAtoB]} ${TG_TH[tgAtoB]}</div>
+        <div style="font-size:.82rem;color:var(--text);margin:.2rem 0">${cmA.feel}</div>
+        <div style="font-size:.77rem;color:var(--muted);line-height:1.5">${cmA.tip}</div>
+      </div>
+      <div style="background:var(--input-bg);border-radius:10px;padding:.7rem;text-align:center">
+        <div style="font-size:.7rem;color:var(--muted);font-weight:700;margin-bottom:.3rem">${profB.image} เขา/เธอมองคุณเป็น</div>
+        <div style="font-weight:800;font-size:.95rem;color:var(--primary)">${TG_ZH[tgBtoA]} ${TG_TH[tgBtoA]}</div>
+        <div style="font-size:.82rem;color:var(--text);margin:.2rem 0">${cmB.feel}</div>
+        <div style="font-size:.77rem;color:var(--muted);line-height:1.5">${cmB.tip}</div>
+      </div>
+    </div>
+    <div style="background:var(--input-bg);border-radius:10px;padding:.7rem;margin-bottom:.6rem">
+      <div style="font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:.3rem">🌿 กิ่งดิน Day Branch</div>
+      <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap">
+        <span style="font-size:.82rem;font-weight:700;color:${elColor(STEMS[chartA.dmIdx].el)}">${BRANCHES[chartA.dayP.bi].zh} ${BRANCHES[chartA.dayP.bi].th}</span>
+        <span style="color:var(--muted)">×</span>
+        <span style="font-size:.82rem;font-weight:700;color:${elColor(STEMS[chartB.dmIdx].el)}">${BRANCHES[chartB.dayP.bi].zh} ${BRANCHES[chartB.dayP.bi].th}</span>
+        ${branchResult.type!=='none'?`<span style="background:${branchColor}22;color:${branchColor};font-size:.72rem;font-weight:700;padding:.15rem .4rem;border-radius:10px;border:1px solid ${branchColor}44">${branchResult.zh}</span>`:''}
+      </div>
+      <div style="font-size:.78rem;color:var(--muted);margin-top:.35rem;line-height:1.55">${branchResult.narr}</div>
+    </div>
+    <div style="background:var(--input-bg);border-radius:10px;padding:.7rem;margin-bottom:.6rem">
+      <div style="font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:.3rem">✨ เคมีก้านฟ้า Day Stem</div>
+      <div style="font-size:.78rem;color:${stemColor};font-weight:600;margin-bottom:.2rem">${stemResult.type==='combo'?'🔗 Five Combination':stemResult.type==='gen'?'⬆️ ผลิต-หนุน':stemResult.type==='ctrl'?'⚡ ควบคุม':'○ อิสระ'}</div>
+      <div style="font-size:.78rem;color:var(--muted);line-height:1.55">${stemResult.narr}</div>
+    </div>
+    <div style="background:var(--input-bg);border-radius:10px;padding:.7rem;margin-bottom:.6rem">
+      <div style="font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:.3rem">⚗️ เคมีธาตุ</div>
+      <div style="font-size:.78rem;color:${elColor2};font-weight:600;margin-bottom:.2rem">${elementResult.complement?'✓ เติมเต็มซึ่งกัน':'○ ไม่มีการเสริมพิเศษ'}</div>
+      <div style="font-size:.78rem;color:var(--muted);line-height:1.55">${elementResult.narr}</div>
+    </div>
+    <div style="background:${meta.accent}0d;border:1px solid ${meta.accent}33;border-radius:10px;padding:.7rem">
+      <div style="font-size:.72rem;font-weight:700;color:${meta.accent};margin-bottom:.35rem">💡 insight สำหรับ${meta.label}</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.6">${insightMap[relType]||''}</div>
+    </div>`;
+  sec.appendChild(card);
+}
+
 function computeCompatibility(chartA,chartB){
   const tgAtoB=getTenGodIdx(chartA.dmIdx,chartB.dmIdx); // how A sees B's DM
   const tgBtoA=getTenGodIdx(chartB.dmIdx,chartA.dmIdx); // how B sees A's DM
@@ -3427,6 +3679,8 @@ function toggleDark(){
 }
 // D2: current main chart reference
 let currentChart=null;
+let currentRelType='romantic';
+let lastChartB=null;
 
 function shareToLine(){
   var url=encodeURIComponent(location.href);
@@ -3456,6 +3710,18 @@ document.getElementById('main-tabs').addEventListener('click',e=>{
   document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById(btn.dataset.tab).classList.add('active');
+});
+
+// D2: role type buttons
+document.querySelectorAll('.rel-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.rel-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentRelType=btn.dataset.role;
+    if(currentChart&&lastChartB){
+      renderCompatibilityV2(currentChart,lastChartB,document.getElementById('compat-result'),currentRelType);
+    }
+  });
 });
 
 // City selector
@@ -3590,7 +3856,8 @@ document.getElementById('compat-form').addEventListener('submit',function(e){
   if(!year||!month||!day||isNaN(h)||h<0||h>23||min<0||min>59||!gender)return;
   try{
     const chartB=calculateBazi(year,month,day,h,min,gender,null,false);
-    renderCompatibility(currentChart,chartB,document.getElementById('compat-result'));
+    lastChartB=chartB;
+    renderCompatibilityV2(currentChart,chartB,document.getElementById('compat-result'),currentRelType);
   }catch(err){
     alert('เกิดข้อผิดพลาดในการคำนวณดวงคนที่ 2: '+err.message);console.error(err);
   }
