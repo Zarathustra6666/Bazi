@@ -1,0 +1,2 @@
+[mcp_servers.notebooklm-mcp]
+command = 'C:\Users\user\AppData\Roaming\uv\tools\notebooklm-mcp-server\Scripts\notebooklm-mcp.exe'
