@@ -1,0 +1,55 @@
+{
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true
+  },
+  "mcpServers": {
+    "notebooklm-mcp": {
+      "command": "C:\\Users\\user\\AppData\\Roaming\\uv\\tools\\notebooklm-mcp-server\\Scripts\\notebooklm-mcp.exe",
+      "args": []
+    }
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python C:/Vault/tools/session_state.py load || true"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "mcp__notebooklm",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python C:/Vault/tools/check_nlm_auth.py"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python C:/Vault/tools/lint_wiki.py C:/Bazi || true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python C:/Vault/tools/research_orchestrator.py check || true && python C:/Vault/tools/session_state.py dump || true"
+          }
+        ]
+      }
+    ]
+  }
+}

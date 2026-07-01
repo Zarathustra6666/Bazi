@@ -1,4 +1,9 @@
 .obsidian/
-.claude/
+# share .claude/skills/, commands/, agents/ and settings.json with collaborators
+.claude/settings.local.json
+.claude/worktrees/
 .vscode/
 .md-session/
+
+# Auto-resume checkpoint (ephemeral session state, never commit)
+session-checkpoint.md
