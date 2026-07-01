@@ -15,7 +15,7 @@ This command runs the `/lit-review` skill with Vault-specific output defaults.
 - **Source summary**: `wiki/sources/[topic]-nlm-litreview-[YYYY-MM-DD].md`
 - **Log**: `log.md` in the active vault's root
 
-If invoked from a vault with no `wiki/` structure (e.g., `C:\Vault\Z`),
+If invoked from a repo with no `wiki/` structure,
 save to the working directory with the same naming convention.
 
 ## Steps
