@@ -23,7 +23,13 @@ updated: 2026-07-01
 
 ## Queue (unclaimed — either agent picks up anything here)
 
-- [ ] (empty — add items as they're identified)
+- [ ] Undocumented `Wiki/masters/`, `Wiki/synthesis/`, `Wiki/texts/` subfolders vs
+  `CLAUDE.md`'s documented schema — decide whether to formalize or consolidate
+- [ ] `C:\Vault\.claude\commands\parallel-sync.md` hardcodes `find /c/Vault` instead of
+  `find /c` — misses Bazi/TicketBots/TicketBotsWeb in fleet-wide discovery; fix in
+  Vault, then re-sync to Bazi
+- [ ] 272 pre-existing lint issues in `Wiki/` content (broken bilingual WikiLinks,
+  missing frontmatter, orphans) — candidate for `/wiki-batch-expand` or `/nightly-pipeline`
 
 ---
 
@@ -37,7 +43,7 @@ updated: 2026-07-01
 
 | From | Date | File |
 |------|------|------|
-| (none yet) | — | — |
+| claude | 2026-07-01 | `handoffs/handoff_2026-07-01_07-07_claude-protocol-parity.md` |
 
 ---
 
