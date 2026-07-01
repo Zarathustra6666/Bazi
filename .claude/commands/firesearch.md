@@ -11,6 +11,17 @@ description: >
 This repo is for Bazi content. Do not write DPA-bank or BankProfile research into
 `C:\Bazi\wiki`.
 
+> **Why this stub exists (do not delete):** there is a global `firesearch` skill at
+> `~/.claude/skills/firesearch/SKILL.md` (also mirrored in `C:\Vault\.claude\skills\`)
+> that triggers on Thai-bank phrases ("ทำ ธ. [bank]", "deep dive [bank]", or a bare DPA
+> bank name like SCB/KTB/BAY) and writes into `C:\Vault\md\Wiki\entities\`. Global
+> skills only yield to a local one when a same-named local skill exists in the current
+> repo's `.claude/commands/` or `.claude/skills/`. Without this local override, that
+> global bank-research skill is what actually fires when `/firesearch` (or a matching
+> Thai trigger phrase) is invoked from a Bazi session — silently doing Thai-bank
+> research in the wrong repo. This stub is the interception point, not a redundant
+> command-set-parity placeholder.
+
 ## Behavior
 
 When invoked from `C:\Bazi`:
