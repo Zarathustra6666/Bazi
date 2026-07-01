@@ -7,3 +7,7 @@
 
 # Auto-resume checkpoint (ephemeral session state, never commit)
 session-checkpoint.md
+
+# Session state snapshot (written by Stop hook, read at session start)
+session-state.json
+session-banner-hash.txt

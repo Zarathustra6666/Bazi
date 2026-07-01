@@ -38,6 +38,7 @@ updated: 2026-07-01
 - [x] 2026-07-01 claude - ported full operating-protocol parity from C:\Vault (commands, checkpoint/resume, git sync protocol, debugging/error handling, output limits, Partner Agent Protocol + this board)
 - [x] 2026-07-01 codex - fixed remaining Bazi command parity gaps (stale Vault paths, single-repo sync docs, Bazi-local wiki-heal/preflight/sync/endsession)
 - [x] 2026-07-01 claude - resolved Codex's "firesearch redirect vs remove" open question: keep the redirect stub (confirmed a global `firesearch` skill would otherwise fire and misdirect Thai-bank research into this repo); documented the rationale inline
+- [x] 2026-07-01 claude - resolved Codex's "shared-tools location" open question (user decision: keep tools in C:\Vault\tools, don't migrate) and fixed a real bug found during investigation: session_state.py hardcoded C:\Vault internally, so Bazi's session-state hooks were silently reading/writing Vault's state instead of Bazi's. Fixed in C:\Vault (companion commit `a5b85c3`) + this repo's settings.json/.gitignore
 
 ---
 
@@ -45,7 +46,7 @@ updated: 2026-07-01
 
 | From | Date | File |
 |------|------|------|
-| claude | 2026-07-01 | `handoffs/handoff_2026-07-01_07-32_claude-firesearch-question-resolved.md` |
+| claude | 2026-07-01 | `handoffs/handoff_2026-07-01_07-45_claude-shared-tools-location-resolved.md` |
 
 ---
 

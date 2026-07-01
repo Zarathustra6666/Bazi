@@ -14,7 +14,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python C:/Vault/tools/session_state.py load || true"
+            "command": "python C:/Vault/tools/session_state.py load C:/Bazi || true"
           }
         ]
       }
@@ -46,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python C:/Vault/tools/research_orchestrator.py check || true && python C:/Vault/tools/session_state.py dump || true"
+            "command": "python C:/Vault/tools/research_orchestrator.py check || true && python C:/Vault/tools/session_state.py dump C:/Bazi || true"
           }
         ]
       }
